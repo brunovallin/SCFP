@@ -1,6 +1,6 @@
 package Model;
 
-import Enum.TipoFuncionario;
+import Enum.*;
 
 public class Funcionario extends Pessoa {
 
@@ -10,7 +10,17 @@ public class Funcionario extends Pessoa {
 
 	private TipoFuncionario tipoFuncionario;
 
+	private TipoRegistro tipoRegistro;
+
 	public Funcionario() {
+	}
+
+	public TipoRegistro getTipoRegistro() {
+		return tipoRegistro;
+	}
+
+	public void setTipoRegistro(TipoRegistro tipoRegistro) {
+		this.tipoRegistro = tipoRegistro;
 	}
 
 	public TipoFuncionario getTipoFuncionario() {

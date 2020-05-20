@@ -2,6 +2,8 @@ package Model;
 
 import java.util.Date;
 
+import Enum.TipoPessoa;
+
 public class Pessoa {
 
 	private int id;
@@ -10,13 +12,15 @@ public class Pessoa {
 
 	private Date dtNascimento;
 
-	private String cpf;
+	private String documento;
 
 	private String rg;
-	
-	public Pessoa(){
 
-	}
+	private TipoPessoa tipoPessoa;
+
+	public Pessoa() {
+		
+	}	
 
 	public int getId() {
 		return id;
@@ -31,11 +35,11 @@ public class Pessoa {
 	}
 
 	public String getCpf() {
-		return cpf;
+		return documento;
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		this.documento = cpf;
 	}
 
 	public Date getDtNascimento() {
@@ -58,4 +62,11 @@ public class Pessoa {
 		this.id = id;
 	}
 
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
 }
