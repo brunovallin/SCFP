@@ -48,3 +48,11 @@ public class Funcionario extends Pessoa {
 	}
 
 }
+
+
+public class InnerFuncionario extends Funcionario {
+
+    public double tipoRegistro;
+	public double id;
+
+}

@@ -28,6 +28,8 @@ public class Morador extends Pessoa {
 		this.setCodEstacionamento(codEstacionamento);
 	}
 
+//testes concluidos 
+
 	public int getCodEstacionamento() {
 		return codEstacionamento;
 	}
