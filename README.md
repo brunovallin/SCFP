@@ -1,14 +1,7 @@
-## Getting Started
+## Objetivo
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+O projeto tem como objetivo, compôr um sistema de controle de pessoas de um condomínio.
 
-## Folder Structure
+## Descrição do projeto
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-## Dependency Management
-
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+Este projeto foi desenvolvido para composição de nota, utilizando os conceitos de programação orientada a objetos utilizando a linguagem Java integrado à um banco de dados MySQL. Nele é possível fazer o controle de entrada de todas as pessoas que circulam por um condomínio, sendo elas, visitantes, moradores, entregadores, prestadores de serviço e corretores.
