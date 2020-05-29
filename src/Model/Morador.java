@@ -6,6 +6,8 @@ public class Morador extends Pessoa {
 
 	private int idMorador;
 
+	private String rg;
+
 	private int nContrato;
 
 	private String bloco;
@@ -16,16 +18,28 @@ public class Morador extends Pessoa {
 
 	private int codEstacionamento;
 
-	public Morador(String nome, String cpf, String rg, Date dtNasc, int nContrato, int nApt,
-			int codEstacionamento, String bloco) {
-		this.setNome(nome);
-		this.setCpf(cpf);
-		this.setDtNascimento(dtNasc);
-		this.setRg(rg);
-		this.setnContrato(nContrato);
-		this.setBloco(bloco);
-		this.setnApt(nApt);
-		this.setCodEstacionamento(codEstacionamento);
+	public Morador(String nome, String cpf, String rg, Date dtNasc, int nContrato, int nApt, int codEstacionamento,
+			String bloco) throws Exception {				
+		try {
+			this.setNome(nome);
+			this.setCpf(cpf);		
+			this.setDtNascimento(dtNasc);
+			this.setRg(rg);
+			this.setnContrato(nContrato);
+			this.setBloco(bloco);
+			this.setnApt(nApt);
+			this.setCodEstacionamento(codEstacionamento);	
+		} catch (Exception e) {
+			throw e;
+		}		
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 
 	public int getCodEstacionamento() {
@@ -53,7 +67,7 @@ public class Morador extends Pessoa {
 	}
 
 	public String getBloco() {
-		return bloco;
+		return bloco.concat(bloco).concat(" ");
 	}
 
 	public void setBloco(String bloco) {
@@ -73,7 +87,7 @@ public class Morador extends Pessoa {
 	}
 
 	public void setnContrato(int nContrato) {
-		this.nContrato = nContrato;
+		this.nContrato = nContrato;		
 	}
 
 }

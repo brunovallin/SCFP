@@ -9,19 +9,8 @@ public class Funcionario extends Pessoa {
 	private double salario;
 
 	private TipoFuncionario tipoFuncionario;
-
-	private TipoRegistro tipoRegistro;
-
-	public Funcionario() {
-	}
-
-	public TipoRegistro getTipoRegistro() {
-		return tipoRegistro;
-	}
-
-	public void setTipoRegistro(TipoRegistro tipoRegistro) {
-		this.tipoRegistro = tipoRegistro;
-	}
+	
+	
 
 	public TipoFuncionario getTipoFuncionario() {
 		return tipoFuncionario;
@@ -44,7 +33,7 @@ public class Funcionario extends Pessoa {
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.id = id;		
 	}
 
 }

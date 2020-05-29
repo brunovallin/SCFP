@@ -14,59 +14,65 @@ public class Pessoa {
 
 	private String documento;
 
-	private String rg;
-
 	private TipoPessoa tipoPessoa;
 
-	public Pessoa() {
-		
-	}	
+	public Pessoa() {				
+	}
 
 	public int getId() {
 		return id;
+	}	
+
+	public void setId(final int id) {
+		this.id = id;
 	}
 
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-
-	public String getCpf() {
+	public String getCpf() {		
 		return documento;
 	}
 
-	public void setCpf(String cpf) {
-		this.documento = cpf;
+	public void setCpf(final String documento) {
+		if(documento.length() == 11)
+			this.setTipoPessoa(TipoPessoa.FISICA);
+		else if(documento.length() == 14)
+			this.setTipoPessoa(TipoPessoa.JURIDICA);
+		this.documento = documento;
 	}
 
 	public Date getDtNascimento() {
 		return dtNascimento;
 	}
 
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
+	public void setDtNascimento(final Date dtNascimento) throws Exception {
+		try {
+			if(dtNascimento.getYear() > 1900)
+				throw new Exception("Data de nascimento Inválida");
+			this.dtNascimento = dtNascimento;	
+		} catch (final Exception e) {
+			throw e;
+		}		
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setNome(final String nome) throws Exception{
+		try {
+			if(nome.isEmpty())
+				throw new Exception("Nome não preenchido!");				
+			this.nome = nome;	
+		} catch (final Exception e) {
+			throw e;
+		}
+		
 	}
 
 	public TipoPessoa getTipoPessoa() {
 		return tipoPessoa;
 	}
 
-	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+	public void setTipoPessoa(final TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
 }

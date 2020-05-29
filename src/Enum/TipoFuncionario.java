@@ -4,5 +4,5 @@ public enum TipoFuncionario {
     SINDICO,
     SEGURANCA,
     ZELADOR,
-    PORTEIRO
+    PORTEIRO 
 }
