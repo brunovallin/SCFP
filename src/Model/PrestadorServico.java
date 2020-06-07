@@ -9,11 +9,11 @@ public class PrestadorServico extends Pessoa {
     private Morador moradorRequisitante;
 
     public Pessoa getFkEmpresa() {
-        return fkEmpresa;
+        return this.fkEmpresa;
     }
 
     public Morador getMoradorRequisitante() {
-        return moradorRequisitante;
+        return this.moradorRequisitante;
     }
 
     public void setMoradorRequisitante(Morador moradorRequisitante) {
@@ -21,7 +21,7 @@ public class PrestadorServico extends Pessoa {
     }
 
     public String getDescricaoServico() {
-        return descricaoServico;
+        return this.descricaoServico;
     }
 
     public void setDescricaoServico(String descricaoServico) {

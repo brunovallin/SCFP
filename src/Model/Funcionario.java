@@ -21,7 +21,7 @@ public class Funcionario extends Pessoa {
 	}
 
 	public double getSalario() {
-		return salario;
+		return this.salario;
 	}
 
 	public void setSalario(double salario) {
@@ -29,7 +29,7 @@ public class Funcionario extends Pessoa {
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {

@@ -3,11 +3,11 @@ package Model;
 import java.util.List;
 import Model.DAO.DAOCorretor;
 
-public class Corretor extends Pessoa{
+public class Corretor extends Pessoa {    
 
     private String creci;
 
-    private Pessoa fkImobiliaria;
+    private Pessoa fkImobiliaria;        
 
     public String getCreci() {
         return this.creci;
@@ -21,16 +21,22 @@ public class Corretor extends Pessoa{
         this.fkImobiliaria = fkImobiliaria;
     }
 
+    public void setFkImobiliaria(int id) {
+        Pessoa imobiliaria = new Pessoa();
+        imobiliaria.setId(id);
+        this.fkImobiliaria = imobiliaria;
+	}
+
     public void setCreci(String creci) {
         this.creci = creci;
     }
 
-    public static Corretor consultaCorretor(String creci){
+    public static Corretor consultaCorretor(String creci) throws Exception{
         try {
             return DAOCorretor.consultarCorretor(creci);    
         } catch (Exception e) {
             throw e;
-        }        
+        }                
     }  
     
     public List<Corretor> consultaCorretores() throws Exception {
@@ -42,7 +48,7 @@ public class Corretor extends Pessoa{
         
     }
 
-    public void alterarCorretor(){
+    public void alterarCorretor()throws Exception{
         try {
             DAOCorretor.alterarCorretor(this);
         } catch (Exception e) {
@@ -51,7 +57,7 @@ public class Corretor extends Pessoa{
         
     }
 
-    public void excluirCorretor(int id){
+    public void excluirCorretor(int id) throws Exception{
         try {
             DAOCorretor.excluirCorretor(id);    
         } catch (Exception e) {
@@ -59,11 +65,11 @@ public class Corretor extends Pessoa{
         }        
     }
 
-    public void cadastraCorretor(){
+    public void cadastraCorretor() throws Exception{
         try {            
             DAOCorretor.cadastrarCorretor(this);    
         } catch (Exception e) {
             throw e;
         }        
-    }
+    }	
 }

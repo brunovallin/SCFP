@@ -6,11 +6,11 @@ public class Visitante extends Pessoa {
     private Morador moradorAVisitar;
 
     public String getRg() {
-        return rg;
+        return this.rg;
     }
 
     public Morador getMoradorAVisitar() {
-        return moradorAVisitar;
+        return this.moradorAVisitar;
     }
 
     public void setMoradorAVisitar(Morador moradorAVisitar) {
