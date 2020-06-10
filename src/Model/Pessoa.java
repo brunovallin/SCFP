@@ -2,8 +2,6 @@ package Model;
 
 import java.util.Date;
 
-import Enum.TipoPessoa;
-
 public class Pessoa {
 
 	private int id;
@@ -12,36 +10,30 @@ public class Pessoa {
 
 	private Date dtNascimento;
 
-	private String documento;
+	private String cpf;
 
-	private TipoPessoa tipoPessoa;
+	private String rg;
 
-	public Pessoa() {						
+	public Pessoa() {
 	}	
 
 	public int getId() {
 		return this.id;
 	}	
 
-	public void setId(final int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getDocumento() {		
-		return this.documento;
+	public String getCpf() {		
+		return this.cpf;
 	}
 
-	public void setDocumento(String documento) throws Exception{
-		if(documento.length() != 11 || documento.length() != 14){
-			throw new Exception("Documento Inválido!");
-		}
-
-		if(documento.length() == 11){
-			this.setTipoPessoa(TipoPessoa.FISICA);
-		}			
-		else if(documento.length() == 14)
-			this.setTipoPessoa(TipoPessoa.JURIDICA);
-		this.documento = documento;
+	public void setCpf(String documento) throws Exception{
+		if(documento.length() != 11){
+			throw new Exception("Cpf Inválido!");
+		}					
+		this.cpf = documento;
 	}
 
 	public Date getDtNascimento() {
@@ -58,17 +50,17 @@ public class Pessoa {
 		return this.nome;
 	}
 
-	public void setNome(final String nome) throws Exception{	
+	public void setNome(String nome) throws Exception{	
 		if(nome.isEmpty())
 			throw new Exception("Nome não preenchido!");				
 		this.nome = nome;					
 	}
 
-	public TipoPessoa getTipoPessoa() {
-		return this.tipoPessoa;
+	public String getRg() {
+		return this.rg;
 	}
 
-	public void setTipoPessoa(final TipoPessoa tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 }
