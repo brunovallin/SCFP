@@ -1,10 +1,13 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import Model.DAO.DAOLogEntrada;
 
 public class LogEntrada {
 
-    private Pessoa pessoa;
+    private Pessoa visitante;
 
     private String descricaoAcao;
 
@@ -12,8 +15,8 @@ public class LogEntrada {
 
     private Morador aVisitar;
 
-    public Pessoa getIdPessoa() {
-        return this.pessoa;
+    public Pessoa getVisitante() {
+        return this.visitante;
     }
 
     public Morador getaVisitar() {
@@ -24,6 +27,12 @@ public class LogEntrada {
         this.aVisitar = aVisitar;
     }
 
+    public void setaVisitar(int id) {
+        Morador morador = new Morador();
+        morador.setId(id);
+        this.aVisitar = morador;
+    }
+    
     public Date getDataEntrada() {
         return dataEntrada;
     }
@@ -40,7 +49,27 @@ public class LogEntrada {
         this.descricaoAcao = descricaoAcao;
     }
 
-    public void setIdPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public void setPessoa(Pessoa pessoa) {
+        this.visitante = pessoa;
+    }
+    public void setPessoa(int id){
+        Pessoa pessoa = new Pessoa();
+        pessoa.setId(id);
+        this.visitante = pessoa;
+    }
+
+    public static ArrayList<LogEntrada> consultaEntradaDia(Date data) throws Exception {
+        try {
+            return DAOLogEntrada.consultaLogEntradaDia(data);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    public void cadastrarLogEntrada(LogEntrada log) throws Exception {
+        try {
+            DAOLogEntrada.cadastrarLogEntrada(log);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }

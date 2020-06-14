@@ -10,8 +10,6 @@ public class Pessoa {
 
 	private Date dtNascimento;
 
-	private String cpf;
-
 	private String rg;
 
 	public Pessoa() {
@@ -23,17 +21,6 @@ public class Pessoa {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getCpf() {		
-		return this.cpf;
-	}
-
-	public void setCpf(String documento) throws Exception{
-		if(documento.length() != 11){
-			throw new Exception("Cpf Inválido!");
-		}					
-		this.cpf = documento;
 	}
 
 	public Date getDtNascimento() {
