@@ -1,5 +1,7 @@
 package Controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,12 +11,12 @@ import Model.Funcionario;
 public class FuncionarioController {
 
 
-    public Funcionario consultaFuncionario(String documento) throws Exception{
+    public Funcionario consultaFuncionario(String rg) throws Exception{
 
         try {
-            final Funcionario funcionario = new Funcionario();
+            Funcionario funcionario = new Funcionario();
 
-            funcionario.consultaFuncionario(documento.replace(".", "").replace("-", "").replace("/", ""));
+            funcionario.consultarFuncionario(rg.replace(".", "").replace("-", "").replace("/", ""));
 
             return funcionario;
 
@@ -26,13 +28,9 @@ public class FuncionarioController {
 
     public ArrayList<Funcionario> consultaTodosFuncionarios() throws Exception{
         
-        try {
-            final ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+        try{
 
-            funcionarios.add(new Funcionario());
-            funcionarios.addAll(new ArrayList<Funcionario>());
-
-            return funcionarios;
+            return Funcionario.consultarTodosFuncionarios();
 
         } catch (final Exception e) {
             
@@ -40,17 +38,19 @@ public class FuncionarioController {
         }
     }
 
-    public void cadastrarFuncionario(String nome, String dtNasc, String documento, String tipoFuncionario ) throws Exception{
+    public void cadastrarFuncionario(String nome, String dtNasc, String rg, String tipoFuncionario ) throws Exception{
         try {
             Funcionario funcionario = new Funcionario();
+            SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+
 
             funcionario.setNome(nome);
-            funcionario.setDtNascimento(dtNasc);
-            funcionario.setDocumento(documento.replace(".", "").replace("-", "").replace("/", ""));
+            funcionario.setDtNascimento((Date)data.parse(dtNasc));
+            funcionario.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
 
             switch (tipoFuncionario) {
-                case "SINDICO":
-                    funcionario.setTipoFuncionario(TipoFuncionario.SINDICO);
+                case "FAXINEIRA":
+                    funcionario.setTipoFuncionario(TipoFuncionario.FAXINEIRA);
                     break;
                 
                 case "PORTEIRO":
@@ -77,19 +77,22 @@ public class FuncionarioController {
 
     }
 
-    public void alterarFuncionario(String nome, String dtNasc, String documento, String tipoFuncionario){
+    public void alterarFuncionario(String nome, String dtNasc, String rg, String tipoFuncionario){
 
         try {
             Funcionario funcionario = new Funcionario();
+            SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
 
             funcionario.setNome(nome);
-            funcionario.setDtNascimento(dtNasc);
-            funcionario.setDocumento(documento.replace(".", "").replace("-", "").replace("/", ""));
+            funcionario.setDtNascimento((Date)data.parse(dtNasc));
+            funcionario.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
+            
 
             switch (tipoFuncionario) {
-                case "SINDICO":
-                    funcionario.setTipoFuncionario(TipoFuncionario.SINDICO);
+                case "FAXINEIRA":
+                    funcionario.setTipoFuncionario(TipoFuncionario.FAXINEIRA);
                     break;
+                
                 
                 case "PORTEIRO":
                     funcionario.setTipoFuncionario(TipoFuncionario.PORTEIRO);
@@ -114,11 +117,12 @@ public class FuncionarioController {
         }
     }
 
-    public void excluirFuncionario(String documento) throws Exception{
+    public void excluirFuncionario(int id) throws Exception{
         try {
             Funcionario funcionario = new Funcionario();
 
-            funcionario.excluirFuncionario(documento.replace(".", "").replace("-", "").replace("/", ""));
+            funcionario.setId(id);
+            funcionario.excluirFuncionario();
 
         } catch (Exception e) {
 
