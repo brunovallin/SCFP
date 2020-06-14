@@ -39,7 +39,6 @@ public class Visitante extends Pessoa {
 			this.setId(morador.getId());
 			this.setNome(morador.getNome());
 			this.setDtNascimento(morador.getDtNascimento());
-			this.setCpf(morador.getCpf());
 			this.setRg(morador.getRg());
 			this.setmoradorResponsavel(morador.getmoradorResponsavel());
             this.setmoradorResponsavel(morador.getmoradorResponsavel().getId());

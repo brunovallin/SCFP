@@ -10,18 +10,17 @@ import Enum.TipoVisitante;
 import Model.Visitante;
 
 public class DAOVisitante {
-  public static Visitante consultarVisitante(String cpf) throws Exception {
+  public static Visitante consultarVisitante(String rg) throws Exception {
     Conexao conn = new Conexao();
     Visitante visitante = new Visitante();
     try {
       Connection cnx = conn.getConexaoMySQL();
       Statement stt = cnx.createStatement();
-      ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE CPF = '%s'", cpf));
+      ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE RG = '%s'", rg));
       while (rst.first()) {
         visitante.setId(rst.getInt("ID"));
         visitante.setNome(rst.getString("NOME"));
-        visitante.setDtNascimento(rst.getDate("DTNASCIMENTO"));
-        visitante.setCpf(rst.getString("CPF"));
+        visitante.setDtNascimento(rst.getDate("DTNASCIMENTO"));        
         visitante.setRg(rst.getString("RG"));
       }
       rst = stt.executeQuery(String.format("SELECT * FROM VISITANTE WHERE MPESSOA = %d", visitante.getId()));
@@ -52,8 +51,7 @@ public class DAOVisitante {
         visitante = new Visitante();
         visitante.setId(rst.getInt("ID"));
         visitante.setNome(rst.getString("NOME"));
-        visitante.setDtNascimento(rst.getDate("DTNASCIMENTO"));
-        visitante.setCpf(rst.getString("CPF"));
+        visitante.setDtNascimento(rst.getDate("DTNASCIMENTO"));        
         visitante.setRg(rst.getString("RG"));
         rstPessoa = stt.executeQuery(String.format("SELECT * FROM VISITANTE WHERE MPESSOA = %d", visitante.getId()));
         while (rstPessoa.first()) {
@@ -78,9 +76,8 @@ public class DAOVisitante {
     try {
       Statement stt = cnx.createStatement();
       ResultSet rst = stt.executeQuery(String.format(
-          "INSERT INTO PESSOA(NOME,DTNASCIMENTO,CPF, RG) VALUES('%s',%t,'%s','%s'); SELECT ID FROM PESSOA WHERE NOME = '%s'",
-          visitante.getNome(), visitante.getDtNascimento(), visitante.getCpf(), visitante.getRg(),
-          visitante.getNome()));
+          "INSERT INTO PESSOA(NOME,DTNASCIMENTO, RG) VALUES('%s',%t,'%s'); SELECT ID FROM PESSOA WHERE NOME = '%s'",
+          visitante.getNome(), visitante.getDtNascimento(), visitante.getRg(), visitante.getNome()));
       int id = rst.getInt("ID");
       stt.execute(
           String.format("INSERT INTO VISITANTE(MPESSOA, MMORADORRESPONSAVEL, TIPOVISITANTE) VALUES(%d, %d, '%s')", id,
@@ -100,8 +97,8 @@ public class DAOVisitante {
     try {
       Statement stt = cnx.createStatement();
       stt.execute(String.format(
-          "UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, CPF = '%s', CPF = '%s', RG = '%s' WHERE ID = %d);",
-          visitante.getNome(), visitante.getDtNascimento(), visitante.getCpf(), visitante.getRg(), visitante.getId()));
+          "UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, RG = '%s' WHERE ID = %d);",
+          visitante.getNome(), visitante.getDtNascimento(), visitante.getRg(), visitante.getId()));
       stt.execute(
           String.format("UPDATE VISITANTE SET MMORADORRESPONSAVEL = %d, TIPOVISITANTE = '%s' WHERE MPESSOA = %d",
               visitante.getmoradorResponsavel(), visitante.getTipoVisitante().toString()));

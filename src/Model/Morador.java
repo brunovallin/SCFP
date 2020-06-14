@@ -14,14 +14,12 @@ public class Morador extends Pessoa {
 	private int codEstacionamento;
 
 	public Morador(){
-
 	}
 
 	public Morador(String nome, String cpf, String rg, Date dtNasc, int nApt, int codEstacionamento,
 			String bloco) throws Exception {				
 		try {
-			this.setNome(nome);
-			this.setCpf(cpf);		
+			this.setNome(nome);	
 			this.setDtNascimento(dtNasc);
 			this.setRg(rg);
 			this.setBloco(bloco);
@@ -61,8 +59,7 @@ public class Morador extends Pessoa {
 			Morador morador = DAOMorador.consultarMorador(cpf);
 			this.setId(morador.getId());
 			this.setNome(morador.getNome());
-			this.setDtNascimento(morador.getDtNascimento());
-			this.setCpf(morador.getCpf());
+			this.setDtNascimento(morador.getDtNascimento());			
 			this.setRg(morador.getRg());			
 			this.setBloco(morador.getBloco());	
 			this.setnApt(morador.getnApt());

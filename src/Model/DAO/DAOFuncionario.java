@@ -10,18 +10,17 @@ import Enum.TipoFuncionario;
 import Model.Funcionario;
 
 public class DAOFuncionario {
-    public static Funcionario consultarFuncionario(String cpf) throws Exception {
+    public static Funcionario consultarFuncionario(String rg) throws Exception {
         Conexao conn = new Conexao();
         Funcionario funcionario = new Funcionario();        
         try {            
             Connection cnx = conn.getConexaoMySQL();
             Statement stt = cnx.createStatement();
-            ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE CPF = '%s'", cpf));
+            ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE RG = '%s'", rg));
             while(rst.first()){              
               funcionario.setId(rst.getInt("ID"));
               funcionario.setNome(rst.getString("NOME"));
-              funcionario.setDtNascimento(rst.getDate("DTNASCIMENTO"));
-              funcionario.setCpf(rst.getString("CPF"));                            
+              funcionario.setDtNascimento(rst.getDate("DTNASCIMENTO"));                                        
               funcionario.setRg(rst.getString("RG"));                            
             }            
             rst = stt.executeQuery(String.format("SELECT * FROM FUNCIONARIO WHERE MPESSOA = %d", funcionario.getId()));
@@ -53,8 +52,7 @@ public class DAOFuncionario {
             funcionario = new Funcionario();
             funcionario.setId(rst.getInt("ID"));
             funcionario.setNome(rst.getString("NOME"));
-            funcionario.setDtNascimento(rst.getDate("DTNASCIMENTO"));
-            funcionario.setCpf(rst.getString("CPF"));                            
+            funcionario.setDtNascimento(rst.getDate("DTNASCIMENTO"));                                      
             funcionario.setRg(rst.getString("RG"));   
             rstPessoa = stt.executeQuery(String.format("SELECT * FROM FUNCIONARIO WHERE MPESSOA = %d",funcionario.getId()));
             while(rstPessoa.first()){              
@@ -81,7 +79,7 @@ public class DAOFuncionario {
           
           Statement stt = cnx.createStatement();
           ResultSet rst = stt.executeQuery(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO,CPF, RG) VALUES('%s',%t,'%s','%s'); SELECT ID FROM PESSOA WHERE NOME = '%s'",
-                                            funcionario.getNome(), funcionario.getDtNascimento(), funcionario.getCpf(), funcionario.getRg(), funcionario.getNome()));
+                                            funcionario.getNome(), funcionario.getDtNascimento(), funcionario.getRg(), funcionario.getNome()));
           int id = rst.getInt("ID");          
           stt.execute(String.format("INSERT INTO FUNCIONARIO(MPESSOA, TIPOFUNCIONARIO) VALUES(%d, '%s')", id, funcionario.getTipoFuncionario().toString()));
           cnx.commit();
@@ -99,7 +97,7 @@ public class DAOFuncionario {
     Connection cnx = conn.getConexaoMySQL();
     try {                  
       Statement stt = cnx.createStatement();
-      stt.execute(String.format("UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, CPF = '%s', CPF = '%s', RG = '%s' WHERE ID = %d);",funcionario.getNome(), funcionario.getDtNascimento(), funcionario.getCpf(), funcionario.getRg(), funcionario.getId()));
+      stt.execute(String.format("UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, RG = '%s' WHERE ID = %d);",funcionario.getNome(), funcionario.getDtNascimento(), funcionario.getRg(), funcionario.getId()));
       stt.execute(String.format("UPDATE FUNCIONARIO SET TIPOFUNCIONARIO = '%s' WHERE MPESSOA = %d", funcionario.getTipoFuncionario().toString(), funcionario.getId()));
       cnx.commit();
     } catch (Exception e) {

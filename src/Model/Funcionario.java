@@ -22,7 +22,6 @@ public class Funcionario extends Pessoa {
 			this.setId(fun.getId());
 			this.setNome(fun.getNome());
 			this.setDtNascimento(fun.getDtNascimento());
-			this.setCpf(fun.getCpf());
 			this.setRg(fun.getRg());
 			this.setTipoFuncionario(fun.getTipoFuncionario());	
 		} catch (Exception e) {

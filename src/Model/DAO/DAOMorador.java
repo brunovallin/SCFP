@@ -9,18 +9,17 @@ import java.util.ArrayList;
 import Model.Morador;
 
 public class DAOMorador {
-  public static Morador consultarMorador(String cpf) throws Exception {
+  public static Morador consultarMorador(String rg) throws Exception {
     Conexao conn = new Conexao();
     Morador morador = new Morador();
     try {            
       Connection cnx = conn.getConexaoMySQL();
       Statement stt = cnx.createStatement();
-      ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE CPF = '%s'", cpf));
+      ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE RG = '%s'", rg));
       while(rst.first()){              
         morador.setId(rst.getInt("ID"));
         morador.setNome(rst.getString("NOME"));
-        morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));
-        morador.setCpf(rst.getString("CPF"));                            
+        morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));                           
         morador.setRg(rst.getString("RG"));                            
       }            
       rst = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d", morador.getId()));
@@ -50,8 +49,7 @@ public class DAOMorador {
       while(rst.first()){              
         morador.setId(rst.getInt("ID"));
         morador.setNome(rst.getString("NOME"));
-        morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));
-        morador.setCpf(rst.getString("CPF"));                            
+        morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));                        
         morador.setRg(rst.getString("RG"));                            
       }            
       rst = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d", morador.getId()));
@@ -81,8 +79,7 @@ public class DAOMorador {
       while(rst.first()){              
         morador.setId(rst.getInt("ID"));
         morador.setNome(rst.getString("NOME"));
-        morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));
-        morador.setCpf(rst.getString("CPF"));                            
+        morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));                                   
         morador.setRg(rst.getString("RG"));                            
       }            
       rst = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d AND BLOCO = '%s' AND MAPT = %d", morador.getId(), bloco, napt));
@@ -115,8 +112,7 @@ public class DAOMorador {
         morador = new Morador();
         morador.setId(rst.getInt("ID"));
         morador.setNome(rst.getString("NOME"));
-        morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));
-        morador.setCpf(rst.getString("CPF"));                            
+        morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));                                 
         morador.setRg(rst.getString("RG"));
         rstPessoa = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d",morador.getId()));
             while(rstPessoa.first()){              
@@ -143,12 +139,12 @@ public class DAOMorador {
       Connection cnx = conn.getConexaoMySQL();
       try {                              
         Statement stt = cnx.createStatement();
-        ResultSet rst = stt.executeQuery(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO,CPF, RG) VALUES('%s',%t,'%s','%s'); SELECT ID FROM PESSOA WHERE NOME = '%s'",
-                                          morador.getNome(), morador.getDtNascimento(), morador.getCpf(), morador.getRg(), morador.getNome()));
+        ResultSet rst = stt.executeQuery(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO, RG) VALUES('%s', %t, '%s'); SELECT ID FROM PESSOA WHERE NOME = '%s'",
+                                          morador.getNome(), morador.getDtNascimento(), morador.getRg(), morador.getNome()));
         int id = rst.getInt("ID");          
         stt.execute(String.format("INSERT INTO MORADOR(MPESSOA, BLOCO, NAPT, CODESTACIONAMENTO) VALUES(%d, '%s', '%s',%d, %d)", id, morador.getBloco(), morador.getnApt(), morador.getCodEstacionamento()));
         cnx.commit();
-      } catch (Exception e) {       
+      } catch (Exception e) {
         cnx.rollback();   
         throw e;
       }
@@ -162,7 +158,7 @@ public class DAOMorador {
     Connection cnx = conn.getConexaoMySQL();
     try {                  
       Statement stt = cnx.createStatement();
-      stt.execute(String.format("UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, CPF = '%s', CPF = '%s', RG = '%s' WHERE ID = %d);",morador.getNome(), morador.getDtNascimento(), morador.getCpf(), morador.getRg(), morador.getId()));
+      stt.execute(String.format("UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, RG = '%s' WHERE ID = %d);",morador.getNome(), morador.getDtNascimento(), morador.getRg(), morador.getId()));
       stt.execute(String.format("UPDATE MORADOR SET BLOCO = '%s', NAPT = %d, CODESTACIONAMENTO = %d WHERE MPESSOA = %d", morador.getBloco(),morador.getnApt(),morador.getCodEstacionamento(), morador.getId()));
       cnx.commit();
     } catch (Exception e) {
