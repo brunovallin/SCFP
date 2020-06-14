@@ -35,23 +35,23 @@ public class SCFP extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         nomeVisitanteLog = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        rgVisitanteLog = new javax.swing.JTextField();
+        comboDescLog = new javax.swing.JComboBox<>();
+        botBuscaVisitanteLog = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        detalheVisitanteLog = new javax.swing.JTextArea();
+        nomeMoradorLog = new javax.swing.JTextField();
+        blocoMoradorLog = new javax.swing.JTextField();
+        numeroApartamentoLog = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        botBuscaMoradorLog = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        gridLog = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        menuCadastroVisitante = new javax.swing.JMenuItem();
+        menuCadastroMorador = new javax.swing.JMenuItem();
+        menuCadastroFuncionario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,47 +80,47 @@ public class SCFP extends javax.swing.JFrame {
 
         jLabel4.setText("RG");
 
-        jTextField2.setName("rgVisitanteLog"); // NOI18N
+        rgVisitanteLog.setName("rgVisitanteLog"); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Visitante", "Prestador de Serviço", " " }));
-        jComboBox1.setActionCommand("visitanteDescricaolog");
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        comboDescLog.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Visitante", "Prestador de Serviço", " " }));
+        comboDescLog.setActionCommand("visitanteDescricaolog");
+        comboDescLog.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                comboDescLogItemStateChanged(evt);
             }
         });
 
-        jButton1.setText("Buscar");
-        jButton1.setActionCommand("buscarRgVisitante");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botBuscaVisitanteLog.setText("Buscar");
+        botBuscaVisitanteLog.setActionCommand("buscarRgVisitante");
+        botBuscaVisitanteLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botBuscaVisitanteLogActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Descrição de serviço\n");
-        jTextArea1.setName("campoDescriçãoServico"); // NOI18N
-        jScrollPane1.setViewportView(jTextArea1);
+        detalheVisitanteLog.setColumns(20);
+        detalheVisitanteLog.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        detalheVisitanteLog.setRows(5);
+        detalheVisitanteLog.setText("Descrição de serviço\n");
+        detalheVisitanteLog.setName("campoDescriçãoServico"); // NOI18N
+        jScrollPane1.setViewportView(detalheVisitanteLog);
 
-        jTextField3.setText("Nome Completo");
-        jTextField3.setName("nomeMoradorLog"); // NOI18N
+        nomeMoradorLog.setText("Nome Completo");
+        nomeMoradorLog.setName("nomeMoradorLog"); // NOI18N
 
-        jTextField4.setText("Bloco");
-        jTextField4.setName("blocoMoradorLog"); // NOI18N
+        blocoMoradorLog.setText("Bloco");
+        blocoMoradorLog.setName("blocoMoradorLog"); // NOI18N
 
-        jTextField5.setText("Nº Apartamento");
-        jTextField5.setName("numeroApartamentoLog"); // NOI18N
+        numeroApartamentoLog.setText("Nº Apartamento");
+        numeroApartamentoLog.setName("numeroApartamentoLog"); // NOI18N
 
         jButton2.setText("Ok");
         jButton2.setActionCommand("okLog");
 
-        jButton3.setText("Buscar Morador");
-        jButton3.setActionCommand("buscarMoradorLog");
+        botBuscaMoradorLog.setText("Buscar Morador");
+        botBuscaMoradorLog.setActionCommand("buscarMoradorLog");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        gridLog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -131,8 +131,8 @@ public class SCFP extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setName("gridLog"); // NOI18N
-        jScrollPane2.setViewportView(jTable1);
+        gridLog.setName("gridLog"); // NOI18N
+        jScrollPane2.setViewportView(gridLog);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,7 +146,7 @@ public class SCFP extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton3)
+                                    .addComponent(botBuscaMoradorLog)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(jLabel1)
@@ -156,21 +156,21 @@ public class SCFP extends javax.swing.JFrame {
                                             .addComponent(jLabel3)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jTextField5)
-                                                .addComponent(jTextField4)
-                                                .addComponent(jTextField3)))))
+                                                .addComponent(numeroApartamentoLog)
+                                                .addComponent(blocoMoradorLog)
+                                                .addComponent(nomeMoradorLog)))))
                                 .addGap(22, 22, 22)
                                 .addComponent(jLabel4))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(comboDescLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rgVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1))
+                                .addComponent(botBuscaVisitanteLog))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -183,25 +183,25 @@ public class SCFP extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(nomeVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(rgVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botBuscaVisitanteLog))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboDescLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nomeMoradorLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(blocoMoradorLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(numeroApartamentoLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(botBuscaMoradorLog)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -212,14 +212,20 @@ public class SCFP extends javax.swing.JFrame {
 
         jMenu1.setText("Cadastros");
 
-        jMenuItem1.setText("Visitante");
-        jMenu1.add(jMenuItem1);
+        menuCadastroVisitante.setText("Visitante");
+        menuCadastroVisitante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCadastroVisitanteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuCadastroVisitante);
+        menuCadastroVisitante.getAccessibleContext().setAccessibleParent(menuCadastroVisitante);
 
-        jMenuItem2.setText("Morador");
-        jMenu1.add(jMenuItem2);
+        menuCadastroMorador.setText("Morador");
+        jMenu1.add(menuCadastroMorador);
 
-        jMenuItem3.setText("Funcionario");
-        jMenu1.add(jMenuItem3);
+        menuCadastroFuncionario.setText("Funcionario");
+        jMenu1.add(menuCadastroFuncionario);
 
         jMenuBar1.add(jMenu1);
 
@@ -244,13 +250,13 @@ public class SCFP extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void comboDescLogItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDescLogItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_comboDescLogItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botBuscaVisitanteLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBuscaVisitanteLogActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botBuscaVisitanteLogActionPerformed
 
     private void nomeVisitanteLogInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_nomeVisitanteLogInputMethodTextChanged
         // evento de digitar no textBox nome visitante log
@@ -265,6 +271,10 @@ public class SCFP extends javax.swing.JFrame {
             nomeVisitanteLog.setForeground(Color.black);
         }
     }//GEN-LAST:event_nomeVisitanteLogMouseClicked
+
+    private void menuCadastroVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroVisitanteActionPerformed
+        new CadastroVisitante().setVisible(true);
+    }//GEN-LAST:event_menuCadastroVisitanteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,35 +306,34 @@ public class SCFP extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SCFP().setVisible(true);
-               
+                new SCFP().setVisible(true);                  
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField blocoMoradorLog;
+    private javax.swing.JButton botBuscaMoradorLog;
+    private javax.swing.JButton botBuscaVisitanteLog;
+    private javax.swing.JComboBox<String> comboDescLog;
+    private javax.swing.JTextArea detalheVisitanteLog;
+    private javax.swing.JTable gridLog;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JMenuItem menuCadastroFuncionario;
+    private javax.swing.JMenuItem menuCadastroMorador;
+    private javax.swing.JMenuItem menuCadastroVisitante;
+    private javax.swing.JTextField nomeMoradorLog;
     private javax.swing.JTextField nomeVisitanteLog;
+    private javax.swing.JTextField numeroApartamentoLog;
+    private javax.swing.JTextField rgVisitanteLog;
     // End of variables declaration//GEN-END:variables
 }
