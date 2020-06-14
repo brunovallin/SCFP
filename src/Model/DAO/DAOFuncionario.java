@@ -76,14 +76,17 @@ public class DAOFuncionario {
     
     public static void cadastrarFuncionario(Funcionario funcionario) throws Exception{
       Conexao conn = new Conexao();
+      Connection cnx = conn.getConexaoMySQL();
         try {            
-          Connection cnx = conn.getConexaoMySQL();
+          
           Statement stt = cnx.createStatement();
           ResultSet rst = stt.executeQuery(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO,CPF, RG) VALUES('%s',%t,'%s','%s'); SELECT ID FROM PESSOA WHERE NOME = '%s'",
                                             funcionario.getNome(), funcionario.getDtNascimento(), funcionario.getCpf(), funcionario.getRg(), funcionario.getNome()));
           int id = rst.getInt("ID");          
           stt.execute(String.format("INSERT INTO FUNCIONARIO(MPESSOA, TIPOFUNCIONARIO) VALUES(%d, '%s')", id, funcionario.getTipoFuncionario().toString()));
+          cnx.commit();
       } catch (Exception e) {
+        cnx.rollback();
           throw e;
       }
       finally{
@@ -93,12 +96,14 @@ public class DAOFuncionario {
 
 	public static void alterarFuncionario(Funcionario funcionario) throws Exception{
     Conexao conn = new Conexao();
-    try {            
-      Connection cnx = conn.getConexaoMySQL();
+    Connection cnx = conn.getConexaoMySQL();
+    try {                  
       Statement stt = cnx.createStatement();
       stt.execute(String.format("UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, CPF = '%s', CPF = '%s', RG = '%s' WHERE ID = %d);",funcionario.getNome(), funcionario.getDtNascimento(), funcionario.getCpf(), funcionario.getRg(), funcionario.getId()));
       stt.execute(String.format("UPDATE FUNCIONARIO SET TIPOFUNCIONARIO = '%s' WHERE MPESSOA = %d", funcionario.getTipoFuncionario().toString(), funcionario.getId()));
+      cnx.commit();
     } catch (Exception e) {
+      cnx.rollback();
       throw e;
     }
     finally{
@@ -108,14 +113,17 @@ public class DAOFuncionario {
 
 	public static void excluirFuncionario(int id) throws Exception{
     Conexao conn = new Conexao();
+    Connection cnx = conn.getConexaoMySQL();
     try {            
-      Connection cnx = conn.getConexaoMySQL();
       Statement stt = cnx.createStatement();
       stt.execute(String.format("DELETE FROM FUNCIONARIO WHERE MPESSOA = %d; DELETE FROM PESSOA WHERE ID = %d",id,id));
+      cnx.commit();
     } catch (Exception e) {
+      cnx.rollback();
       throw e;
     }
     finally{
+      
       conn.fecharConexao();
     }
 	}	

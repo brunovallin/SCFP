@@ -1,6 +1,9 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import Model.DAO.DAOMorador;
 
 public class Morador extends Pessoa {
 
@@ -9,6 +12,10 @@ public class Morador extends Pessoa {
 	private int nApt;
 
 	private int codEstacionamento;
+
+	public Morador(){
+
+	}
 
 	public Morador(String nome, String cpf, String rg, Date dtNasc, int nApt, int codEstacionamento,
 			String bloco) throws Exception {				
@@ -48,4 +55,54 @@ public class Morador extends Pessoa {
 	public void setBloco(String bloco) {
 		this.bloco = bloco;
 	}
+
+	public void consultarMorador(String cpf) throws Exception {
+		try {
+			Morador morador = DAOMorador.consultarMorador(cpf);
+			this.setId(morador.getId());
+			this.setNome(morador.getNome());
+			this.setDtNascimento(morador.getDtNascimento());
+			this.setCpf(morador.getCpf());
+			this.setRg(morador.getRg());			
+			this.setBloco(morador.getBloco());	
+			this.setnApt(morador.getnApt());
+			this.setCodEstacionamento(morador.getCodEstacionamento());
+		} catch (Exception e) {
+			throw e;
+		}					
+	}
+
+
+	public static ArrayList<Morador> consultarMoradores() throws Exception{
+		try {
+			return DAOMorador.consultarMoradores();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	public void cadastrarMorador() throws Exception{
+		try {
+			DAOMorador.cadastrarMorador(this);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public void alterarMorador() throws Exception{
+		try {
+			DAOMorador.alterarMorador(this);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public void excluirMorador() throws Exception{
+		try {
+			DAOMorador.excluirMorador(this.getId());
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
 }
