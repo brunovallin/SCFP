@@ -1,8 +1,11 @@
 package Enum;
 
+/**
+ * TipoFuncionario
+ */
 public enum TipoFuncionario {
-    SINDICO,
     SEGURANCA,
     ZELADOR,
-    PORTEIRO 
+    FAXINEIRA,
+    PORTEIRO
 }

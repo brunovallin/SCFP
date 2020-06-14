@@ -2,8 +2,6 @@ package Model;
 
 import java.util.Date;
 
-import Enum.TipoPessoa;
-
 public class Pessoa {
 
 	private int id;
@@ -12,67 +10,57 @@ public class Pessoa {
 
 	private Date dtNascimento;
 
-	private String documento;
+	private String cpf;
 
-	private TipoPessoa tipoPessoa;
+	private String rg;
 
-	public Pessoa() {				
-	}
-
-	public int getId() {
-		return id;
+	public Pessoa() {
 	}	
 
-	public void setId(final int id) {
+	public int getId() {
+		return this.id;
+	}	
+
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public String getCpf() {		
-		return documento;
+		return this.cpf;
 	}
 
-	public void setCpf(final String documento) {
-		if(documento.length() == 11)
-			this.setTipoPessoa(TipoPessoa.FISICA);
-		else if(documento.length() == 14)
-			this.setTipoPessoa(TipoPessoa.JURIDICA);
-		this.documento = documento;
+	public void setCpf(String documento) throws Exception{
+		if(documento.length() != 11){
+			throw new Exception("Cpf Inválido!");
+		}					
+		this.cpf = documento;
 	}
 
 	public Date getDtNascimento() {
-		return dtNascimento;
+		return this.dtNascimento;
 	}
 
-	public void setDtNascimento(final Date dtNascimento) throws Exception {
-		try {
-			if(dtNascimento.getYear() > 1900)
-				throw new Exception("Data de nascimento Inválida");
-			this.dtNascimento = dtNascimento;	
-		} catch (final Exception e) {
-			throw e;
-		}		
+	public void setDtNascimento(Date dtNascimento) throws Exception {		
+		if(dtNascimento.getYear() > 1900)
+			throw new Exception("Data de nascimento Inválida");
+		this.dtNascimento = dtNascimento;			
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
-	public void setNome(final String nome) throws Exception{
-		try {
-			if(nome.isEmpty())
-				throw new Exception("Nome não preenchido!");				
-			this.nome = nome;	
-		} catch (final Exception e) {
-			throw e;
-		}
-		
+	public void setNome(String nome) throws Exception{	
+		if(nome.isEmpty())
+			throw new Exception("Nome não preenchido!");				
+		this.nome = nome;					
 	}
 
-	public TipoPessoa getTipoPessoa() {
-		return tipoPessoa;
+	public String getRg() {
+		return this.rg;
 	}
 
-	public void setTipoPessoa(final TipoPessoa tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 }

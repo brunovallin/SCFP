@@ -1,23 +1,26 @@
 package Model;
 
+import Enum.TipoVisitante;
+
 public class Visitante extends Pessoa {
-    private String rg;
 
     private Morador moradorAVisitar;
 
-    public String getRg() {
-        return rg;
+    private TipoVisitante tipoVisitante;    
+
+    public TipoVisitante getTipoVisitante() {
+        return tipoVisitante;
+    }
+
+    public void setTipoVisitante(TipoVisitante tipoVisitante) {
+        this.tipoVisitante = tipoVisitante;
     }
 
     public Morador getMoradorAVisitar() {
-        return moradorAVisitar;
+        return this.moradorAVisitar;
     }
 
     public void setMoradorAVisitar(Morador moradorAVisitar) {
         this.moradorAVisitar = moradorAVisitar;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
     }
 }
