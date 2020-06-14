@@ -40,17 +40,22 @@ public class Visitante extends Pessoa {
 			this.setNome(morador.getNome());
 			this.setDtNascimento(morador.getDtNascimento());
 			this.setCpf(morador.getCpf());
-			this.setRg(morador.getRg());			
-			this.setmoradorResponsavel(morador.getmoradorResponsavel());	
-			this.setTipoVisitante(morador.getTipoVisitante());			
+			this.setRg(morador.getRg());
+			this.setmoradorResponsavel(morador.getmoradorResponsavel());
+            this.setmoradorResponsavel(morador.getmoradorResponsavel().getId());
+            this.setTipoVisitante(morador.getTipoVisitante());            
 		} catch (Exception e) {
 			throw e;
-		}					
+		}
     }
     
-    public static ArrayList<Visitante> consultaMoradores() throws Exception {
+    public static ArrayList<Visitante> consultaVisitantes() throws Exception {
         try {
-            return DAOVisitante.consultarVisitantes();
+            ArrayList<Visitante> visitantes = DAOVisitante.consultarVisitantes();
+            for(Visitante visitante : visitantes){
+                visitante.setmoradorResponsavel(visitante.getmoradorResponsavel().getId());
+            }
+            return visitantes;
         } catch (Exception e) {
             throw e;
         }
