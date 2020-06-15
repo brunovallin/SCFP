@@ -54,9 +54,9 @@ public class Morador extends Pessoa {
 		this.bloco = bloco;
 	}
 
-	public void consultarMorador(String cpf) throws Exception {
+	public void consultarMorador(String rg) throws Exception {
 		try {
-			Morador morador = DAOMorador.consultarMorador(cpf);
+			Morador morador = DAOMorador.consultarMorador(rg);
 			this.setId(morador.getId());
 			this.setNome(morador.getNome());
 			this.setDtNascimento(morador.getDtNascimento());			

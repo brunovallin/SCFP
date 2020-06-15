@@ -33,9 +33,9 @@ public class Visitante extends Pessoa {
         this.moradorResponsavel = morador;
     }
 
-    public void consultarMorador(String cpf) throws Exception {
+    public void consultarMorador(String rg) throws Exception {
 		try {
-			Visitante morador = DAOVisitante.consultarVisitante(cpf);
+			Visitante morador = DAOVisitante.consultarVisitante(rg);
 			this.setId(morador.getId());
 			this.setNome(morador.getNome());
 			this.setDtNascimento(morador.getDtNascimento());
@@ -60,17 +60,17 @@ public class Visitante extends Pessoa {
         }
     }
 
-    public void cadastrarVisitante(Visitante visitante) throws Exception {
+    public void cadastrarVisitante() throws Exception {
         try {
-            DAOVisitante.cadastrarVisitante(visitante);    
+            DAOVisitante.cadastrarVisitante(this);
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public void alterarVisitante(Visitante visitante) throws Exception{
+    public void alterarVisitante() throws Exception{
         try {
-            DAOVisitante.alterarVisitante(visitante);
+            DAOVisitante.alterarVisitante(this);
         } catch (Exception e) {
             throw e;
         }

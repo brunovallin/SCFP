@@ -16,9 +16,9 @@ public class Funcionario extends Pessoa {
 		this.tipoFuncionario = tipoFuncionario;
 	}	
 
-	public void consultarFuncionario(String cpf) throws Exception {
+	public void consultarFuncionario(String rg) throws Exception {
 		try {
-			Funcionario fun = DAOFuncionario.consultarFuncionario(cpf);
+			Funcionario fun = DAOFuncionario.consultarFuncionario(rg);
 			this.setId(fun.getId());
 			this.setNome(fun.getNome());
 			this.setDtNascimento(fun.getDtNascimento());

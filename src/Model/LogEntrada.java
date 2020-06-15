@@ -65,9 +65,9 @@ public class LogEntrada {
             throw e;
         }
     }
-    public void cadastrarLogEntrada(LogEntrada log) throws Exception {
+    public void cadastrarLogEntrada() throws Exception {
         try {
-            DAOLogEntrada.cadastrarLogEntrada(log);
+            DAOLogEntrada.cadastrarLogEntrada(this);
         } catch (Exception e) {
             throw e;
         }
