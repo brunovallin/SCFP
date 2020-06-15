@@ -99,9 +99,20 @@ public class SCFP extends javax.swing.JFrame {
 
         detalheVisitanteLog.setColumns(20);
         detalheVisitanteLog.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        detalheVisitanteLog.setForeground(new java.awt.Color(204, 204, 204));
         detalheVisitanteLog.setRows(5);
-        detalheVisitanteLog.setText("Descrição de serviço\n");
+        detalheVisitanteLog.setText("Descrição de serviço");
         detalheVisitanteLog.setName("campoDescriçãoServico"); // NOI18N
+        detalheVisitanteLog.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                detalheVisitanteLogFocusLost(evt);
+            }
+        });
+        detalheVisitanteLog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                detalheVisitanteLogMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(detalheVisitanteLog);
 
         nomeMoradorLog.setForeground(new java.awt.Color(204, 204, 204));
@@ -314,7 +325,7 @@ public class SCFP extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCadastroFuncionarioActionPerformed
 
     private void botBuscaVisitanteLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBuscaVisitanteLogActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_botBuscaVisitanteLogActionPerformed
 
     private void comboDescLogItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDescLogItemStateChanged
@@ -322,7 +333,6 @@ public class SCFP extends javax.swing.JFrame {
     }//GEN-LAST:event_comboDescLogItemStateChanged
 
     private void nomeVisitanteLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomeVisitanteLogMouseClicked
-
         if("Nome".equals(nomeVisitanteLog.getText())){
             nomeVisitanteLog.setText("");
             nomeVisitanteLog.setForeground(Color.black);
@@ -379,6 +389,20 @@ public class SCFP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_numeroApartamentoLogMouseClicked
 
+    private void detalheVisitanteLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_detalheVisitanteLogFocusLost
+        if(detalheVisitanteLog.getText().equals("")){
+            detalheVisitanteLog.setText("Descrição de serviço");
+            detalheVisitanteLog.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_detalheVisitanteLogFocusLost
+
+    private void detalheVisitanteLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detalheVisitanteLogMouseClicked
+        if(numeroApartamentoLog.getText().equals("Descrição de serviço")){
+            numeroApartamentoLog.setText("");
+            numeroApartamentoLog.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_detalheVisitanteLogMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -409,7 +433,7 @@ public class SCFP extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SCFP().setVisible(true);                  
+                new SCFP().setVisible(true);
             }
         });
     }
