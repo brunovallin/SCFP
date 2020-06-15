@@ -16,6 +16,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
      */
     public CadastroFuncionario() {
         initComponents();
+        this.setResizable(false);
     }
 
     /**
@@ -45,6 +46,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SCFP - CADASTRO DE FUNCIONÁRIOS");
+        setMaximumSize(new java.awt.Dimension(520, 259));
 
         jPanel1.setToolTipText("SCFP");
 

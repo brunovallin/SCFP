@@ -56,6 +56,7 @@ public class SCFP extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SCFP - Sistema de Controle de Fluxo de Pessoas");
+        setMinimumSize(new java.awt.Dimension(790, 295));
 
         jLabel1.setText("Visitante");
 

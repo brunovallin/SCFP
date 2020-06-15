@@ -16,6 +16,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
      */
     public CadastroVisitante() {
         initComponents();
+        this.setResizable(false);
     }
 
     /**
@@ -45,6 +46,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SCFP - CADASTRO DE VISITANTES");
+        setMaximumSize(new java.awt.Dimension(493, 276));
 
         jLabel1.setText("Nome:");
 
