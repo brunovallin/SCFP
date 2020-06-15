@@ -33,16 +33,16 @@ public class Visitante extends Pessoa {
         this.moradorResponsavel = morador;
     }
 
-    public void consultarMorador(String rg) throws Exception {
+    public void consultarVisitante(String rg) throws Exception {
 		try {
-			Visitante morador = DAOVisitante.consultarVisitante(rg);
-			this.setId(morador.getId());
-			this.setNome(morador.getNome());
-			this.setDtNascimento(morador.getDtNascimento());
-			this.setRg(morador.getRg());
-			this.setmoradorResponsavel(morador.getmoradorResponsavel());
-            this.setmoradorResponsavel(morador.getmoradorResponsavel().getId());
-            this.setTipoVisitante(morador.getTipoVisitante());            
+			Visitante visitante = DAOVisitante.consultarVisitante(rg);
+			this.setId(visitante.getId());
+			this.setNome(visitante.getNome());
+			this.setDtNascimento(visitante.getDtNascimento());
+			this.setRg(visitante.getRg());
+			this.setmoradorResponsavel(visitante.getmoradorResponsavel());
+            this.setmoradorResponsavel(visitante.getmoradorResponsavel().getId());
+            this.setTipoVisitante(visitante.getTipoVisitante());            
 		} catch (Exception e) {
 			throw e;
 		}
