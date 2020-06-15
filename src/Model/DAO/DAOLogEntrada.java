@@ -36,6 +36,32 @@ public class DAOLogEntrada {
         }
     }
 
+    public static ArrayList<LogEntrada> consultaLogsEntrada() throws Exception {
+        Conexao conn = new Conexao();
+        LogEntrada log = new LogEntrada();
+        ArrayList<LogEntrada> logs = new ArrayList<LogEntrada>();
+        try {
+            Connection cnx = conn.getConexaoMySQL();
+            Statement stt = cnx.createStatement();
+            ResultSet rst = stt.executeQuery("SELECT * FROM LOGENTRADA");
+            while (rst.next()) {
+                log = new LogEntrada();
+                log.setPessoa(rst.getInt("MPESSOA"));
+                log.setDescricaoAcao(rst.getString("DESCRICAOACAO"));
+                log.setDataEntrada(rst.getDate("DATAENTRADA"));
+                log.setaVisitar(rst.getInt("MAVISITAR"));
+                logs.add(log);
+            }
+            return logs;
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            conn.fecharConexao();
+        }
+    }
+
     public static void cadastrarLogEntrada(LogEntrada log) throws Exception {
         Conexao conn = new Conexao();
         Connection cnx = conn.getConexaoMySQL();
