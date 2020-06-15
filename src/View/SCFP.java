@@ -340,7 +340,6 @@ public class SCFP extends javax.swing.JFrame {
     }//GEN-LAST:event_nomeVisitanteLogMouseClicked
 
     private void nomeVisitanteLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomeVisitanteLogFocusLost
-        // TODO add your handling code here:
         if(nomeVisitanteLog.getText().equals("")){
             nomeVisitanteLog.setText("Nome");
             nomeVisitanteLog.setForeground(Color.lightGray);
@@ -397,9 +396,9 @@ public class SCFP extends javax.swing.JFrame {
     }//GEN-LAST:event_detalheVisitanteLogFocusLost
 
     private void detalheVisitanteLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detalheVisitanteLogMouseClicked
-        if(numeroApartamentoLog.getText().equals("Descrição de serviço")){
-            numeroApartamentoLog.setText("");
-            numeroApartamentoLog.setForeground(Color.BLACK);
+        if(detalheVisitanteLog.getText().equals("Descrição de serviço")){
+            detalheVisitanteLog.setText("");
+            detalheVisitanteLog.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_detalheVisitanteLogMouseClicked
 

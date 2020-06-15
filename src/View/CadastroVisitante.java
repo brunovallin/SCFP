@@ -47,7 +47,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
 
         jLabel2.setText("Rg");
 
-        tipoVisitanteCad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Visitante", "Prestador de Serviço", " " }));
+        tipoVisitanteCad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Visitante", "Prestador de Serviço" }));
         tipoVisitanteCad.setActionCommand("tipoVisitanteCad");
 
         nomeVisitanteCad.setName("nomeVisitanteCad"); // NOI18N
