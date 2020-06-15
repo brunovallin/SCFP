@@ -36,7 +36,7 @@ public class MoradorController{
         }
     }
 
-    public Morador cadastrarMorador(String nome, String dtNasc, String rg, String bloco, String nApt,  String codEstacionamento) throws Exception{
+    public void cadastrarMorador(String nome, String dtNasc, String rg, String bloco, String nApt,  String codEstacionamento) throws Exception{
 
         try {
             
@@ -63,7 +63,7 @@ public class MoradorController{
         }
     }
 
-    public Morador alterarMorador(String nome, String dtNasc, String rg, String bloco, String nApt,  String codEstacionamento) throws Exception{
+    public void alterarMorador(String nome, String dtNasc, String rg, String bloco, String nApt,  String codEstacionamento) throws Exception{
 
         try {
             Morador morador = new Morador();
