@@ -65,6 +65,15 @@ public class LogEntrada {
             throw e;
         }
     }
+
+    public static ArrayList<LogEntrada> consultaLogsEntrada() throws Exception {
+        try {
+            return DAOLogEntrada.consultaLogsEntrada();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public void cadastrarLogEntrada() throws Exception {
         try {
             DAOLogEntrada.cadastrarLogEntrada(this);
