@@ -30,7 +30,7 @@ public class FuncionarioController {
         
         try{
 
-            return Funcionario.consultarTodosFuncionarios();
+            return Funcionario.consultarFuncionarios();
 
         } catch (final Exception e) {
             
@@ -77,7 +77,7 @@ public class FuncionarioController {
 
     }
 
-    public void alterarFuncionario(String nome, String dtNasc, String rg, String tipoFuncionario){
+    public void alterarFuncionario(String nome, String dtNasc, String rg, String tipoFuncionario) throws Exception {
 
         try {
             Funcionario funcionario = new Funcionario();
@@ -119,11 +119,7 @@ public class FuncionarioController {
 
     public void excluirFuncionario(int id) throws Exception{
         try {
-            Funcionario funcionario = new Funcionario();
-
-            funcionario.setId(id);
-            funcionario.excluirFuncionario();
-
+            Funcionario.excluirFuncionario(id);            
         } catch (Exception e) {
 
             throw e;

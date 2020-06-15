@@ -94,9 +94,9 @@ public class Morador extends Pessoa {
 		}
 	}
 
-	public void excluirMorador() throws Exception{
+	public static void excluirMorador(int id) throws Exception{
 		try {
-			DAOMorador.excluirMorador(this.getId());
+			DAOMorador.excluirMorador(id);
 		} catch (Exception e) {
 			throw e;
 		}

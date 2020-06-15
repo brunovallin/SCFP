@@ -6,6 +6,7 @@ import java.util.Date;
 
 import Enum.*;
 import Model.Morador;
+import Model.DAO.DAOMorador;
 
 
 public class MoradorController{
@@ -17,17 +18,17 @@ public class MoradorController{
             
             morador.consultarMorador(rg.replace(".", "").replace("-", "").replace("/", ""));
 
-
+            return morador;
         } catch (Exception e) {
             throw e;
-        }
+        }        
     }
 
     public ArrayList<Morador> consultarTodosMoradores(String nome, String dtNasc, String rg, String bloco, String nApt, String codEstacionamento ) throws Exception{
 
         try {
         
-            return Morador.consultarTodosMoradores();
+            return Morador.consultarMoradores();
 
         } catch (final Exception e) {
             
@@ -88,14 +89,9 @@ public class MoradorController{
         }
     }
 
-    public Morador excluirMorador(String documento) throws Exception{
-
-        try {
-            
-            Morador morador = new Morador();
-
-            morador.excluirMorador(documento.replace(".", "").replace("-", "").replace("/", ""));
-
+    public void excluirMorador(int id) throws Exception{
+        try {            
+            Morador.excluirMorador(id);
         } catch (Exception e) {
             throw e;
         }

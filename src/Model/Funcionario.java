@@ -53,9 +53,9 @@ public class Funcionario extends Pessoa {
 		}
 	}
 
-	public void excluirFuncionario() throws Exception{
+	public static void excluirFuncionario(int id) throws Exception{
 		try {
-			DAOFuncionario.excluirFuncionario(this.getId());
+			DAOFuncionario.excluirFuncionario(id);
 		} catch (Exception e) {
 			throw e;
 		}

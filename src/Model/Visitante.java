@@ -76,7 +76,7 @@ public class Visitante extends Pessoa {
         }
     }
 
-    public void excluitVisitante(int id) throws Exception{
+    public static void excluitVisitante(int id) throws Exception{
         try {
             DAOVisitante.excluirVisitante(id);
         } catch (Exception e) {
