@@ -102,13 +102,13 @@ public class MoradorController{
 
        if(nome != ""){
             if (nApt != ""){
-               return DAOMorador.consultarMoradorFiltro(nome, nApt);
+               return DAOMorador.consultarMoradorFiltro(nome, Integer.parseInt(nApt));
             }else{
                return DAOMorador.consultarMoradorFiltro(nome);
             }
        }else{
            if(bloco != "" && nApt != ""){
-               return DAOMorador.consultarMoradorFiltro(bloco, nApt);
+               return DAOMorador.consultarMoradorFiltro(bloco, Integer.parseInt(nApt));
            }else{
                throw new Exception("Filtro inválido!\nFiltros válidos:\nNome\nBloco + Num. Apartamento\n Nome + Num. Apartamento");
            }
