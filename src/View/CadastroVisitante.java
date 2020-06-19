@@ -2,7 +2,10 @@ package View;
 
 import Controller.VisitanteController;
 import Model.Visitante;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -203,10 +206,10 @@ public class CadastroVisitante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarVisitanteActionPerformed
-        String nome = txtNomeCad.getText().toUpperCase();
-        String rg = txtRgCad.getText().toUpperCase();
-        String dataNascimento = ftxtDataNascCad.getText();
-        String tipoVisitante = cbTipoVisitanteCad.getSelectedItem().toString();                
+        String nome = txtNomeCad.getText().toUpperCase().trim();
+        String rg = txtRgCad.getText().toUpperCase().trim();
+        String dataNascimento = ftxtDataNascCad.getText().trim();
+        String tipoVisitante = cbTipoVisitanteCad.getSelectedItem().toString().trim();                
         try {           
             if(nome != null && rg != null && dataNascimento != null && !tipoVisitante.equals("Selecione"))
                 VisitanteController.cadastrarVisitante(nome, rg, dataNascimento, tipoVisitante);            
@@ -223,7 +226,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
         Visitante visitante = new Visitante();
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            String rg = txtRgCad.getText().toUpperCase();
+            String rg = txtRgCad.getText().toUpperCase().trim();
             
             if(!rg.isEmpty())         
                 visitante = VisitanteController.consultarVisitante(rg);
@@ -253,7 +256,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
 
     private void excluirVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirVisitanteActionPerformed
         try {        
-            int id = Integer.parseInt(labelInvisivel.getText());
+            int id = Integer.parseInt(labelInvisivel.getText().trim());
         
             if(id != 0)
                 VisitanteController.excluirVisitante(id);
@@ -268,11 +271,11 @@ public class CadastroVisitante extends javax.swing.JFrame {
     }//GEN-LAST:event_excluirVisitanteActionPerformed
 
     private void alterarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarVisitanteActionPerformed
-        String id = labelInvisivel.getText();
-        String nome = txtNomeCad.getText();
-        String rg = txtRgCad.getText();
-        String dataNascimento = ftxtDataNascCad.getText();
-        String tipoVisitante = cbTipoVisitanteCad.getSelectedItem().toString();
+        String id = labelInvisivel.getText().trim();
+        String nome = txtNomeCad.getText().trim();
+        String rg = txtRgCad.getText().trim();
+        String dataNascimento = ftxtDataNascCad.getText().trim();
+        String tipoVisitante = cbTipoVisitanteCad.getSelectedItem().toString().trim();
         
         if(nome != null && rg != null && dataNascimento!= null && !tipoVisitante.equals("Selecione")){
             try {                

@@ -49,16 +49,17 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SCFP - CADASTRO DE FUNCIONÁRIOS");
+        setResizable(false);
 
         jPanel1.setToolTipText("SCFP");
 
-        jLabel1.setText("Nome:");
+        jLabel1.setText("Nome * :");
 
-        jLabel2.setText("Função:");
+        jLabel2.setText("Função * :");
 
-        jLabel3.setText("RG:");
+        jLabel3.setText("RG * :");
 
-        jLabel5.setText("Data de Nasc.:");
+        jLabel5.setText("Data de Nasc. * :");
 
         cadastrarFuncionario.setBackground(new java.awt.Color(0, 153, 0));
         cadastrarFuncionario.setForeground(new java.awt.Color(255, 255, 255));
@@ -107,7 +108,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelInvisivel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()

@@ -8,28 +8,28 @@ import java.util.ArrayList;
 
 public class DAOBloco {
 
-	public static ArrayList<String> buscaBlocos() throws Exception {
-	    Conexao conn = new Conexao();
-        ArrayList<String> blocos = new ArrayList<String>();            
-      
-        try {            
+    public static ArrayList<String> buscaBlocos() throws Exception {
+        Conexao conn = new Conexao();
+        ArrayList<String> blocos = new ArrayList<String>();
+
+        try {
             Connection cnx = conn.getConexaoMySQL();
             Statement stt = cnx.createStatement();
-            ResultSet rst = stt.executeQuery("SELECT * FROM PESSOA");
+            ResultSet rst = stt.executeQuery("SELECT * FROM BLOCO");
             String bloco;
-            while(rst.next()){
+            while (rst.next()) {
                 bloco = new String();
-                bloco = rst.getString("Bloco");                                
-                
+                bloco = rst.getString("NOME");
+
                 blocos.add(bloco);
-            }                      
+            }
             return blocos;
-        } catch(SQLException sqlEx){
+        } catch (SQLException sqlEx) {
             throw sqlEx;
         } catch (Exception e) {
             throw e;
-        } finally{
-        conn.fecharConexao();
-        }		        
-	}
+        } finally {
+            conn.fecharConexao();
+        }
+    }
 }

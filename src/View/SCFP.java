@@ -6,6 +6,9 @@
 package View;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -319,7 +322,11 @@ public class SCFP extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCadastroVisitanteActionPerformed
 
     private void menuCadastroMoradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroMoradorActionPerformed
-        new CadastroMorador().setVisible(true);
+        try {
+            new CadastroMorador().setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível carregar o cadastro de moradores");
+        }
     }//GEN-LAST:event_menuCadastroMoradorActionPerformed
 
     private void menuCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroFuncionarioActionPerformed

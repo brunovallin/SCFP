@@ -28,18 +28,18 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jPanel1" pref="469" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,47 +56,56 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="rgMoradorCad" pref="133" max="32767" attributes="0"/>
-                                      <Component id="blocoMoradorCad" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="excluirMorador" min="-2" pref="92" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="alterarMorador" min="-2" pref="93" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtRgCad" pref="133" max="32767" attributes="0"/>
+                                              <Component id="cbBloco" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jFormattedTextField1" max="32767" attributes="0"/>
-                                      <Component id="numeroApMoradorCad" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="cadastrarMorador" min="-2" pref="92" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="txtNumeroApCad" alignment="0" max="32767" attributes="0"/>
                                       <Component id="buscaMoradorCad" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="fTxtDtNasc" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="nomeMoradorCad" min="-2" pref="342" max="-2" attributes="0"/>
+                              <Component id="txtNomeCad" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="codEstacionamentoCad" min="-2" pref="129" max="-2" attributes="0"/>
+                          <Component id="txtCodEstacionamentoCad" min="-2" pref="129" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                  <Component id="excluirMorador" min="-2" pref="92" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="alterarMorador" min="-2" pref="93" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="cadastrarMorador" min="-2" pref="92" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblIdMorador" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -106,27 +115,27 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="nomeMoradorCad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNomeCad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="rgMoradorCad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtRgCad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jFormattedTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fTxtDtNasc" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="blocoMoradorCad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="numeroApMoradorCad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNumeroApCad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbBloco" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="codEstacionamentoCad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCodEstacionamentoCad" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buscaMoradorCad" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -135,7 +144,9 @@
                       <Component id="alterarMorador" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cadastrarMorador" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblIdMorador" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -158,28 +169,23 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="C&#xf3;digo Estacionamento"/>
+            <Property name="text" type="java.lang.String" value="Cod Estacionamento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nomeMoradorCad">
+        <Component class="javax.swing.JTextField" name="txtNomeCad">
           <Properties>
-            <Property name="name" type="java.lang.String" value="nomeMoradorCad" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="txtNomeCad" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="blocoMoradorCad">
-          <Properties>
-            <Property name="name" type="java.lang.String" value="blocoCad" noResource="true"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="numeroApMoradorCad">
+        <Component class="javax.swing.JTextField" name="txtNumeroApCad">
           <Properties>
             <Property name="name" type="java.lang.String" value="numeroApartamentoCad" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="codEstacionamentoCad">
+        <Component class="javax.swing.JTextField" name="txtCodEstacionamentoCad">
           <Properties>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Default Cursor"/>
+              <Color id="Cursor Padr&#xe3;o"/>
             </Property>
             <Property name="name" type="java.lang.String" value="codigoEstacionamento" noResource="true"/>
           </Properties>
@@ -189,20 +195,21 @@
             <Property name="text" type="java.lang.String" value="RG:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="rgMoradorCad">
+        <Component class="javax.swing.JTextField" name="txtRgCad">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data de Nasc.:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
-        </Component>
         <Component class="javax.swing.JButton" name="buscaMoradorCad">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar"/>
             <Property name="actionCommand" type="java.lang.String" value="botBuscarMoradorAlt"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscaMoradorCadActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="cadastrarMorador">
           <Properties>
@@ -215,6 +222,9 @@
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
             <Property name="actionCommand" type="java.lang.String" value="cadastrarMorador"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarMoradorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="alterarMorador">
           <Properties>
@@ -227,6 +237,9 @@
             <Property name="text" type="java.lang.String" value="Alterar"/>
             <Property name="actionCommand" type="java.lang.String" value="alterarMorador"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="alterarMoradorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="excluirMorador">
           <Properties>
@@ -239,6 +252,34 @@
             <Property name="text" type="java.lang.String" value="Excluir"/>
             <Property name="actionCommand" type="java.lang.String" value="excluirMorador"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirMoradorActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="fTxtDtNasc">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try {&#xa;    MaskFormatter mascaradata = new MaskFormatter(&quot;##/##/####&quot;);&#xa;    fTxtDtNasc = new JFormattedTextField(mascaradata);&#xa;} catch (Exception e){&#xa;    JOptionPane.showMessageDialog(null, &quot;Erro ao iniciar campo data&quot;);&#xa;}"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbBloco">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value="Selecione"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblIdMorador">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jLabel7"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblIdMorador.setVisible(false);&#xa;lblIdMorador.setEnabled(false);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

@@ -23,7 +23,7 @@ public class VisitanteController {
                     visitante.setTipoVisitante(TipoVisitante.VISITANTE);
                 break;
 
-                case "PRESTADORSERVICO":
+                case "PRESTADOR DE SERVIÇO":
                     visitante.setTipoVisitante(TipoVisitante.PRESTADORSERVICO);
                 break;
 

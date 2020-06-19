@@ -5,6 +5,14 @@
  */
 package View;
 
+import Controller.MoradorController;
+import Model.DAO.DAOBloco;
+import Model.Morador;
+import java.text.SimpleDateFormat;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
+
 /**
  *
  * @author rodri
@@ -14,9 +22,10 @@ public class CadastroMorador extends javax.swing.JFrame {
     /**
      * Creates new form CadastroMorador
      */
-    public CadastroMorador() {
+    public CadastroMorador() throws Exception{
         initComponents();
-       this.setResizable(false);
+        this.setResizable(false);            
+        carregaCbBloco();
     }
 
     /**
@@ -33,18 +42,19 @@ public class CadastroMorador extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        nomeMoradorCad = new javax.swing.JTextField();
-        blocoMoradorCad = new javax.swing.JTextField();
-        numeroApMoradorCad = new javax.swing.JTextField();
-        codEstacionamentoCad = new javax.swing.JTextField();
+        txtNomeCad = new javax.swing.JTextField();
+        txtNumeroApCad = new javax.swing.JTextField();
+        txtCodEstacionamentoCad = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        rgMoradorCad = new javax.swing.JTextField();
+        txtRgCad = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         buscaMoradorCad = new javax.swing.JButton();
         cadastrarMorador = new javax.swing.JButton();
         alterarMorador = new javax.swing.JButton();
         excluirMorador = new javax.swing.JButton();
+        fTxtDtNasc = new javax.swing.JFormattedTextField();
+        cbBloco = new javax.swing.JComboBox<>();
+        lblIdMorador = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SCFP - CADASTRO DE MORADORES");
@@ -56,16 +66,14 @@ public class CadastroMorador extends javax.swing.JFrame {
 
         jLabel3.setText("Nº Apartamento:");
 
-        jLabel4.setText("Código Estacionamento");
+        jLabel4.setText("Cod Estacionamento:");
 
-        nomeMoradorCad.setName("nomeMoradorCad"); // NOI18N
+        txtNomeCad.setName("txtNomeCad"); // NOI18N
 
-        blocoMoradorCad.setName("blocoCad"); // NOI18N
+        txtNumeroApCad.setName("numeroApartamentoCad"); // NOI18N
 
-        numeroApMoradorCad.setName("numeroApartamentoCad"); // NOI18N
-
-        codEstacionamentoCad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        codEstacionamentoCad.setName("codigoEstacionamento"); // NOI18N
+        txtCodEstacionamentoCad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtCodEstacionamentoCad.setName("codigoEstacionamento"); // NOI18N
 
         jLabel5.setText("RG:");
 
@@ -73,21 +81,54 @@ public class CadastroMorador extends javax.swing.JFrame {
 
         buscaMoradorCad.setText("Buscar");
         buscaMoradorCad.setActionCommand("botBuscarMoradorAlt");
+        buscaMoradorCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscaMoradorCadActionPerformed(evt);
+            }
+        });
 
         cadastrarMorador.setBackground(new java.awt.Color(0, 153, 0));
         cadastrarMorador.setForeground(new java.awt.Color(255, 255, 255));
         cadastrarMorador.setText("Cadastrar");
         cadastrarMorador.setActionCommand("cadastrarMorador");
+        cadastrarMorador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarMoradorActionPerformed(evt);
+            }
+        });
 
         alterarMorador.setBackground(new java.awt.Color(102, 102, 102));
         alterarMorador.setForeground(new java.awt.Color(255, 255, 255));
         alterarMorador.setText("Alterar");
         alterarMorador.setActionCommand("alterarMorador");
+        alterarMorador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarMoradorActionPerformed(evt);
+            }
+        });
 
         excluirMorador.setBackground(new java.awt.Color(204, 0, 0));
         excluirMorador.setForeground(new java.awt.Color(255, 255, 255));
         excluirMorador.setText("Excluir");
         excluirMorador.setActionCommand("excluirMorador");
+        excluirMorador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirMoradorActionPerformed(evt);
+            }
+        });
+
+        try {
+            MaskFormatter mascaradata = new MaskFormatter("##/##/####");
+            fTxtDtNasc = new JFormattedTextField(mascaradata);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao iniciar campo data");
+        }
+
+        cbBloco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+
+        lblIdMorador.setText("jLabel7");
+        lblIdMorador.setVisible(false);
+        lblIdMorador.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,37 +140,42 @@ public class CadastroMorador extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(rgMoradorCad, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                                    .addComponent(blocoMoradorCad))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(excluirMorador, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(25, 25, 25)
+                                        .addComponent(alterarMorador, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtRgCad, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                            .addComponent(cbBloco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(46, 46, 46)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel6))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jFormattedTextField1)
-                                    .addComponent(numeroApMoradorCad)
-                                    .addComponent(buscaMoradorCad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(nomeMoradorCad, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(cadastrarMorador, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtNumeroApCad)
+                                    .addComponent(buscaMoradorCad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(fTxtDtNasc)))
+                            .addComponent(txtNomeCad)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(codEstacionamentoCad, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodEstacionamentoCad, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(74, 74, 74))
+                .addGap(63, 63, 63))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(excluirMorador, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(alterarMorador, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(cadastrarMorador, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(lblIdMorador)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -137,31 +183,33 @@ public class CadastroMorador extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomeMoradorCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rgMoradorCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRgCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(fTxtDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(blocoMoradorCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(numeroApMoradorCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumeroApCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbBloco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(codEstacionamentoCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodEstacionamentoCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscaMoradorCad))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(excluirMorador)
                     .addComponent(alterarMorador)
                     .addComponent(cadastrarMorador))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblIdMorador)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,6 +232,73 @@ public class CadastroMorador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buscaMoradorCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaMoradorCadActionPerformed
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Morador morador = MoradorController.consultarMorador(txtRgCad.getText());
+            lblIdMorador.setText(Integer.toString(morador.getId()));
+            txtNomeCad.setText(morador.getNome());
+            txtRgCad.setText(morador.getRg());
+            cbBloco.setSelectedItem(morador.getBloco());
+            txtNumeroApCad.setText(String.valueOf(morador.getnApt()));
+            txtCodEstacionamentoCad.setText(Integer.toString(morador.getCodEstacionamento()));
+            fTxtDtNasc.setText(data.format(morador.getDtNascimento()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+    }//GEN-LAST:event_buscaMoradorCadActionPerformed
+
+    private void cadastrarMoradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarMoradorActionPerformed
+        try {
+            MoradorController.cadastrarMorador(txtNomeCad.getText().trim(), fTxtDtNasc.getText().trim(), txtRgCad.getText().trim(), cbBloco.getSelectedItem().toString().trim(), txtNumeroApCad.getText().trim(), txtCodEstacionamentoCad.getText().trim());
+            JOptionPane.showMessageDialog(null, "Morador Cadastrado com sucesso!");
+            limpaCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_cadastrarMoradorActionPerformed
+
+    private void alterarMoradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarMoradorActionPerformed
+        try {
+            MoradorController.alterarMorador(lblIdMorador.getText(),txtNomeCad.getText().trim(), fTxtDtNasc.getText().trim(), txtRgCad.getText().trim(), cbBloco.getSelectedItem().toString().trim(), txtNumeroApCad.getText().trim(), txtCodEstacionamentoCad.getText().trim());
+            JOptionPane.showMessageDialog(null, "Morador alterado com sucesso!");
+            limpaCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_alterarMoradorActionPerformed
+
+    private void excluirMoradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirMoradorActionPerformed
+        try {
+            MoradorController.excluirMorador(lblIdMorador.getText());
+            JOptionPane.showMessageDialog(null, "Morador excluído com sucesso!");
+            limpaCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_excluirMoradorActionPerformed
+
+    private void limpaCampos() throws Exception {
+        txtCodEstacionamentoCad.setText("");
+        txtNomeCad.setText("");
+        txtNumeroApCad.setText("");
+        txtRgCad.setText("");
+        cbBloco.setSelectedIndex(0);
+        fTxtDtNasc.setText("");        
+    }
+
+    private void carregaCbBloco() {
+        try {
+            for (String item : DAOBloco.buscaBlocos()) {
+                cbBloco.addItem(item);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -198,35 +313,43 @@ public class CadastroMorador extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroMorador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroMorador.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroMorador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroMorador.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroMorador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroMorador.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroMorador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroMorador.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroMorador().setVisible(true);
+                try {
+                    new CadastroMorador().setVisible(true);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterarMorador;
-    private javax.swing.JTextField blocoMoradorCad;
     private javax.swing.JButton buscaMoradorCad;
     private javax.swing.JButton cadastrarMorador;
-    private javax.swing.JTextField codEstacionamentoCad;
+    private javax.swing.JComboBox<String> cbBloco;
     private javax.swing.JButton excluirMorador;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField fTxtDtNasc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -234,8 +357,10 @@ public class CadastroMorador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nomeMoradorCad;
-    private javax.swing.JTextField numeroApMoradorCad;
-    private javax.swing.JTextField rgMoradorCad;
+    private javax.swing.JLabel lblIdMorador;
+    private javax.swing.JTextField txtCodEstacionamentoCad;
+    private javax.swing.JTextField txtNomeCad;
+    private javax.swing.JTextField txtNumeroApCad;
+    private javax.swing.JTextField txtRgCad;
     // End of variables declaration//GEN-END:variables
 }
