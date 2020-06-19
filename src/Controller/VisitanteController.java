@@ -6,16 +6,14 @@ import java.util.Date;
 
 import Enum.TipoVisitante;
 import Model.Visitante;
-import Model.Morador;
 
 public class VisitanteController {
 
-    public void cadastrarVisitante(String nome, String rg, String dtNasc, String idMorador, String tipoVisitante ) throws Exception{
+    public static void cadastrarVisitante(String nome, String rg, String dtNasc, String tipoVisitante ) throws Exception{
         try {
             
             Visitante visitante = new Visitante();
             SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
-            Morador morador = new Morador();
 
             visitante.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
             visitante.setNome(nome);
@@ -32,13 +30,6 @@ public class VisitanteController {
             }
             visitante.setDtNascimento((Date)data.parse(dtNasc));
 
-            morador.setId(Integer.parseInt(idMorador));
-            
-            if(morador.getId() <= 0){
-               throw new Exception("Morador não encontrado");
-            }
-            visitante.setmoradorResponsavel(morador);
-
             visitante.cadastrarVisitante();
         
         } catch (Exception e) {
@@ -47,7 +38,7 @@ public class VisitanteController {
 
     }
 
-    public Visitante consultarVisitante(String rg) throws Exception{
+    public static Visitante consultarVisitante(String rg) throws Exception{
 
         try {
             Visitante visitante = new Visitante();
@@ -62,7 +53,7 @@ public class VisitanteController {
 
     }
 
-    public ArrayList<Visitante> consultaVisitantes() throws Exception{
+    public static ArrayList<Visitante> consultaVisitantes() throws Exception{
 
         try {
             
@@ -74,12 +65,11 @@ public class VisitanteController {
 
     }
 
-    public void alterarVisitante(String nome, String rg, String dtNasc, String idMorador, String tipoVisitante) throws Exception{
+    public static void alterarVisitante(String nome, String rg, String dtNasc, String tipoVisitante) throws Exception{
 
         try{
         Visitante visitante = new Visitante();
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
-        Morador morador = new Morador();
 
         visitante.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
         visitante.setNome(nome);
@@ -96,13 +86,6 @@ public class VisitanteController {
         }
         visitante.setDtNascimento((Date)data.parse(dtNasc));
 
-        morador.setId(Integer.parseInt(idMorador));
-        
-        if(morador.getId() <= 0){
-           throw new Exception("Morador não encontrado");
-        }
-        visitante.setmoradorResponsavel(morador);
-
         visitante.alterarVisitante();
     
          }catch (Exception e) {
@@ -111,7 +94,7 @@ public class VisitanteController {
     }
 
 
-    public void excluirVisitante(int id) throws Exception{
+    public static void excluirVisitante(int id) throws Exception{
 
         try {
             

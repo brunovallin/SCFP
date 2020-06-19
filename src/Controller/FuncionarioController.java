@@ -11,7 +11,7 @@ import Model.Funcionario;
 public class FuncionarioController {
 
 
-    public Funcionario consultaFuncionario(String rg) throws Exception{
+    public static Funcionario consultaFuncionario(String rg) throws Exception{
 
         try {
             Funcionario funcionario = new Funcionario();
@@ -26,7 +26,7 @@ public class FuncionarioController {
         }
     }
 
-    public ArrayList<Funcionario> consultaTodosFuncionarios() throws Exception{
+    public static ArrayList<Funcionario> consultaTodosFuncionarios() throws Exception{
         
         try{
 
@@ -38,7 +38,7 @@ public class FuncionarioController {
         }
     }
 
-    public void cadastrarFuncionario(String nome, String dtNasc, String rg, String tipoFuncionario ) throws Exception{
+    public static void cadastrarFuncionario(String nome, String dtNasc, String rg, String tipoFuncionario ) throws Exception{
         try {
             Funcionario funcionario = new Funcionario();
             SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
@@ -77,7 +77,7 @@ public class FuncionarioController {
 
     }
 
-    public void alterarFuncionario(String nome, String dtNasc, String rg, String tipoFuncionario) throws Exception {
+    public static void alterarFuncionario(String nome, String dtNasc, String rg, String tipoFuncionario) throws Exception {
 
         try {
             Funcionario funcionario = new Funcionario();
@@ -117,7 +117,7 @@ public class FuncionarioController {
         }
     }
 
-    public void excluirFuncionario(int id) throws Exception{
+    public static void excluirFuncionario(int id) throws Exception{
         try {
             Funcionario.excluirFuncionario(id);            
         } catch (Exception e) {

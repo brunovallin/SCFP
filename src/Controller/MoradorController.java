@@ -11,7 +11,7 @@ import Model.DAO.DAOMorador;
 
 public class MoradorController{
 
-    public Morador consultarMorador(String rg) throws Exception{
+    public static Morador consultarMorador(String rg) throws Exception{
 
         try {
             Morador morador = new Morador();
@@ -24,7 +24,7 @@ public class MoradorController{
         }        
     }
 
-    public ArrayList<Morador> consultarTodosMoradores(String nome, String dtNasc, String rg, String bloco, String nApt, String codEstacionamento ) throws Exception{
+    public static ArrayList<Morador> consultarTodosMoradores(String nome, String dtNasc, String rg, String bloco, String nApt, String codEstacionamento ) throws Exception{
 
         try {
         
@@ -36,7 +36,7 @@ public class MoradorController{
         }
     }
 
-    public void cadastrarMorador(String nome, String dtNasc, String rg, String bloco, String nApt,  String codEstacionamento) throws Exception{
+    public static void cadastrarMorador(String nome, String dtNasc, String rg, String bloco, String nApt,  String codEstacionamento) throws Exception{
 
         try {
             
@@ -63,7 +63,7 @@ public class MoradorController{
         }
     }
 
-    public void alterarMorador(String nome, String dtNasc, String rg, String bloco, String nApt,  String codEstacionamento) throws Exception{
+    public static void alterarMorador(String nome, String dtNasc, String rg, String bloco, String nApt,  String codEstacionamento) throws Exception{
 
         try {
             Morador morador = new Morador();
@@ -89,7 +89,7 @@ public class MoradorController{
         }
     }
 
-    public void excluirMorador(int id) throws Exception{
+    public static void excluirMorador(int id) throws Exception{
         try {            
             Morador.excluirMorador(id);
         } catch (Exception e) {
@@ -97,7 +97,7 @@ public class MoradorController{
         }
     }
 
-    public ArrayList<Morador> buscaMorador(String nome, String bloco, String nApt){
+    public static ArrayList<Morador> buscaMorador(String nome, String bloco, String nApt){
         
 
        if(nome != ""){
