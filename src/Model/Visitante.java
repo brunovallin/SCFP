@@ -6,8 +6,7 @@ import Enum.TipoVisitante;
 import Model.DAO.DAOVisitante;
 
 public class Visitante extends Pessoa {
-
-    private Morador moradorResponsavel;
+    
 
     private TipoVisitante tipoVisitante;    
 
@@ -17,20 +16,6 @@ public class Visitante extends Pessoa {
 
     public void setTipoVisitante(TipoVisitante tipoVisitante) {
         this.tipoVisitante = tipoVisitante;
-    }
-
-    public Morador getmoradorResponsavel() {
-        return this.moradorResponsavel;
-    }
-
-    public void setmoradorResponsavel(Morador moradorResponsavel) {
-        this.moradorResponsavel = moradorResponsavel;
-    }
-
-    public void setmoradorResponsavel(int id){
-        Morador morador = new Morador();
-        morador.setId(id);
-        this.moradorResponsavel = morador;
     }
 
     public void consultarVisitante(String rg) throws Exception {

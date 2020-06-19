@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import Enum.TipoVisitante;
 import Model.Visitante;
+import java.text.SimpleDateFormat;
 
 public class DAOVisitante {
   public static Visitante consultarVisitante(String rg) throws Exception {
@@ -25,8 +26,7 @@ public class DAOVisitante {
       }
       rst = stt.executeQuery(String.format("SELECT * FROM VISITANTE WHERE MPESSOA = %d", visitante.getId()));
       while (rst.first()) {
-        visitante.setTipoVisitante((TipoVisitante) rst.getObject("TIPOVISITANTE"));
-        visitante.setmoradorResponsavel(rst.getInt("MMORADOR"));
+        visitante.setTipoVisitante((TipoVisitante) rst.getObject("TIPOVISITANTE"));        
       }
       return visitante;
     } catch (SQLException sqlEx) {
@@ -55,8 +55,7 @@ public class DAOVisitante {
         visitante.setRg(rst.getString("RG"));
         rstPessoa = stt.executeQuery(String.format("SELECT * FROM VISITANTE WHERE MPESSOA = %d", visitante.getId()));
         while (rstPessoa.first()) {
-          visitante.setTipoVisitante((TipoVisitante) rst.getObject("TIPOVISITANTE"));
-          visitante.setmoradorResponsavel(rst.getInt("MMORADOR"));
+          visitante.setTipoVisitante((TipoVisitante) rst.getObject("TIPOVISITANTE"));          
         }
         moradores.add(visitante);
       }
@@ -72,22 +71,24 @@ public class DAOVisitante {
 
   public static void cadastrarVisitante(Visitante visitante) throws Exception {
     Conexao conn = new Conexao();
-    Connection cnx = conn.getConexaoMySQL();
-    try {
-      Statement stt = cnx.createStatement();
-      ResultSet rst = stt.executeQuery(String.format(
-          "INSERT INTO PESSOA(NOME,DTNASCIMENTO, RG) VALUES('%s',%t,'%s'); SELECT ID FROM PESSOA WHERE NOME = '%s'",
-          visitante.getNome(), visitante.getDtNascimento(), visitante.getRg(), visitante.getNome()));
-      int id = rst.getInt("ID");
-      stt.execute(
-          String.format("INSERT INTO VISITANTE(MPESSOA, MMORADORRESPONSAVEL, TIPOVISITANTE) VALUES(%d, %d, '%s')", id,
-              visitante.getId(), visitante.getmoradorResponsavel().getId(), visitante.getTipoVisitante().toString()));
-      cnx.commit();
+    Connection cnx = conn.getConexaoMySQL();    
+    cnx.setAutoCommit(false);
+    SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+    int id = 0;
+    try {      
+        Statement stt = cnx.createStatement();
+        stt.execute(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO, RG) VALUES('%s','%s','%s');",visitante.getNome(), data.format(visitante.getDtNascimento()), visitante.getRg(), visitante.getNome()));
+        ResultSet rst = stt.executeQuery(String.format("SELECT ID FROM PESSOA WHERE NOME = '%s'",visitante.getNome()));
+        
+        if(rst != null && rst.next())
+            id = rst.getInt("ID");      
+        stt.execute(String.format("INSERT INTO VISITANTE(MPESSOA, TIPOVISITANTE) VALUES(%d, '%s')", id, visitante.getTipoVisitante().toString()));                
+        cnx.commit();
     } catch (Exception e) {
-      cnx.rollback();
-      throw e;
+        cnx.rollback();
+        throw e;
     } finally {
-      conn.fecharConexao();
+        conn.fecharConexao();
     }
   }
 
@@ -100,11 +101,8 @@ public class DAOVisitante {
           "UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, RG = '%s' WHERE ID = %d);",
           visitante.getNome(), visitante.getDtNascimento(), visitante.getRg(), visitante.getId()));
       stt.execute(
-          String.format("UPDATE VISITANTE SET MMORADORRESPONSAVEL = %d, TIPOVISITANTE = '%s' WHERE MPESSOA = %d",
-              visitante.getmoradorResponsavel(), visitante.getTipoVisitante().toString()));
-      cnx.commit();
-    } catch (Exception e) {
-      cnx.rollback();
+          String.format("UPDATE VISITANTE SET MMORADORRESPONSAVEL = %d, TIPOVISITANTE = '%s' WHERE MPESSOA = %d", visitante.getTipoVisitante().toString(), visitante.getId()));      
+    } catch (Exception e) {      
       throw e;
     } finally {
       conn.fecharConexao();
@@ -116,10 +114,8 @@ public class DAOVisitante {
     Connection cnx = conn.getConexaoMySQL();
     try {
       Statement stt = cnx.createStatement();
-      stt.execute(String.format("DELETE FROM VISITANTE WHERE MPESSOA = %d; DELETE FROM PESSOA WHERE ID = %d", id, id));
-      cnx.commit();
-    } catch (Exception e) {
-      cnx.rollback();
+      stt.execute(String.format("DELETE FROM VISITANTE WHERE MPESSOA = %d; DELETE FROM PESSOA WHERE ID = %d", id, id));      
+    } catch (Exception e) {     
       throw e;
     } finally {
       conn.fecharConexao();
