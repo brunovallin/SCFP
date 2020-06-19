@@ -5,6 +5,10 @@
  */
 package View;
 
+import Controller.FuncionarioController;
+import Model.Funcionario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author rodri
@@ -38,15 +42,13 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         cadastrarFuncionario = new javax.swing.JButton();
         excluirFuncionario = new javax.swing.JButton();
         alterarFuncionario = new javax.swing.JButton();
-        buscaFuncionarioCad = new javax.swing.JComboBox<>();
         botBuscaFuncionarioCad = new javax.swing.JButton();
         dataNascfuncionarioCad = new javax.swing.JFormattedTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
+        funcaoCadFuncionario = new javax.swing.JComboBox<>();
+        labelInvisivel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SCFP - CADASTRO DE FUNCIONÁRIOS");
-        setMaximumSize(new java.awt.Dimension(520, 259));
 
         jPanel1.setToolTipText("SCFP");
 
@@ -62,60 +64,78 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         cadastrarFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         cadastrarFuncionario.setText("Cadastrar");
         cadastrarFuncionario.setActionCommand("cadastrarFuncionario");
+        cadastrarFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastrarFuncionarioMouseClicked(evt);
+            }
+        });
 
         excluirFuncionario.setBackground(new java.awt.Color(204, 0, 0));
         excluirFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         excluirFuncionario.setText("Excluir");
         excluirFuncionario.setActionCommand("excluirFuncionario");
+        excluirFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                excluirFuncionarioMouseClicked(evt);
+            }
+        });
 
         alterarFuncionario.setBackground(new java.awt.Color(102, 102, 102));
         alterarFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         alterarFuncionario.setText("Alterar");
         alterarFuncionario.setActionCommand("incluirFuncionario");
-
-        buscaFuncionarioCad.setActionCommand("comboFuncionario");
+        alterarFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                alterarFuncionarioMouseClicked(evt);
+            }
+        });
 
         botBuscaFuncionarioCad.setText("Buscar");
         botBuscaFuncionarioCad.setActionCommand("buscarfuncionario");
+        botBuscaFuncionarioCad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botBuscaFuncionarioCadMouseClicked(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        funcaoCadFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Porteiro", "Faxineiro", "Segurança", "Zelador" }));
 
-        jLabel4.setText("Funcionário:");
+        labelInvisivel2.setText("Não Estou aqui !");
+        labelInvisivel2.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel4))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(buscaFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botBuscaFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(rgFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dataNascfuncionarioCad))
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nomeFuncionarioCad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(excluirFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(alterarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(70, 70, 70)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelInvisivel2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(excluirFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(alterarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rgFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dataNascfuncionarioCad))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(funcaoCadFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botBuscaFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nomeFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,21 +150,23 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                     .addComponent(rgFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dataNascfuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscaFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botBuscaFuncionarioCad)
-                    .addComponent(jLabel4))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cadastrarFuncionario)
-                    .addComponent(excluirFuncionario)
-                    .addComponent(alterarFuncionario))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(funcaoCadFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelInvisivel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(botBuscaFuncionarioCad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cadastrarFuncionario)
+                            .addComponent(alterarFuncionario)
+                            .addComponent(excluirFuncionario))))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,6 +188,88 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cadastrarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarFuncionarioMouseClicked
+        
+        String nome = nomeFuncionarioCad.getSelectedText();
+        String rg = rgFuncionarioCad.getSelectedText();
+        String dataNascimento = dataNascfuncionarioCad.getSelectedText();
+        String funcao = funcaoCadFuncionario.getSelectedItem().toString();
+        
+         if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !funcao.isEmpty()){
+             
+             try {
+                 
+                 FuncionarioController.cadastrarFuncionario(nome, rg, dataNascimento, funcao); 
+                 
+             } catch (Exception e) {
+                 
+                 JOptionPane.showMessageDialog(null, e.getMessage());
+                 
+             }
+         } 
+    }//GEN-LAST:event_cadastrarFuncionarioMouseClicked
+
+    private void alterarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarFuncionarioMouseClicked
+        
+        String nome = nomeFuncionarioCad.getSelectedText();
+        String rg = rgFuncionarioCad.getSelectedText();
+        String dataNascimento = dataNascfuncionarioCad.getSelectedText();
+        String funcao = funcaoCadFuncionario.getSelectedItem().toString();
+        
+        if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !funcao.isEmpty()){
+            
+            try {
+                
+                FuncionarioController.alterarFuncionario(nome, dataNascimento, rg, funcao);
+                
+            } catch (Exception e) {
+                
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                
+            }   
+        }
+    }//GEN-LAST:event_alterarFuncionarioMouseClicked
+
+    private void excluirFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirFuncionarioMouseClicked
+        
+        try {
+            
+             int id = Integer.parseInt(labelInvisivel2.getText());
+        
+            if(id == 0)
+                FuncionarioController.excluirFuncionario(id);
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            
+        }  
+    }//GEN-LAST:event_excluirFuncionarioMouseClicked
+
+    private void botBuscaFuncionarioCadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botBuscaFuncionarioCadMouseClicked
+        
+        Funcionario funcionario = new Funcionario();
+        
+        try {
+            
+            String rg = rgFuncionarioCad.getText();
+            
+            if(!rg.isEmpty())
+                funcionario = FuncionarioController.consultaFuncionario(rg);
+            nomeFuncionarioCad.setText(funcionario.getNome());
+            rgFuncionarioCad.setText(funcionario.getRg());
+            dataNascfuncionarioCad.setText(funcionario.getDtNascimento().toString());
+            funcaoCadFuncionario.setSelectedItem(funcionario.getTipoFuncionario());
+            labelInvisivel2.setText(String.valueOf(funcionario.getId()));
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            
+        }
+        
+    }//GEN-LAST:event_botBuscaFuncionarioCadMouseClicked
 
     /**
      * @param args the command line arguments
@@ -206,17 +310,16 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterarFuncionario;
     private javax.swing.JButton botBuscaFuncionarioCad;
-    private javax.swing.JComboBox<String> buscaFuncionarioCad;
     private javax.swing.JButton cadastrarFuncionario;
     private javax.swing.JFormattedTextField dataNascfuncionarioCad;
     private javax.swing.JButton excluirFuncionario;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> funcaoCadFuncionario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelInvisivel2;
     private javax.swing.JTextField nomeFuncionarioCad;
     private javax.swing.JTextField rgFuncionarioCad;
     // End of variables declaration//GEN-END:variables
