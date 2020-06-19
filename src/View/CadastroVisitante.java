@@ -5,6 +5,12 @@
  */
 package View;
 
+import Controller.VisitanteController;
+import Model.Visitante;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author rodri
@@ -34,19 +40,17 @@ public class CadastroVisitante extends javax.swing.JFrame {
         tipoVisitanteCad = new javax.swing.JComboBox<>();
         nomeVisitanteCad = new javax.swing.JTextField();
         rgVisitanteCad = new javax.swing.JTextField();
-        buscaMoradorVisCad = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         botbuscaMoradorVisCad = new javax.swing.JButton();
         cadastrarVisitante = new javax.swing.JButton();
         excluirVisitante = new javax.swing.JButton();
         alterarVisitante = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        dataNascimentoCadVist = new javax.swing.JFormattedTextField();
+        labelInvisivel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SCFP - CADASTRO DE VISITANTES");
-        setMaximumSize(new java.awt.Dimension(493, 276));
 
         jLabel1.setText("Nome:");
 
@@ -54,41 +58,54 @@ public class CadastroVisitante extends javax.swing.JFrame {
 
         tipoVisitanteCad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Visitante", "Prestador de Serviço" }));
         tipoVisitanteCad.setActionCommand("tipoVisitanteCad");
-        tipoVisitanteCad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoVisitanteCadActionPerformed(evt);
-            }
-        });
 
         nomeVisitanteCad.setName("nomeVisitanteCad"); // NOI18N
 
         rgVisitanteCad.setName("rgVisitanteCad"); // NOI18N
 
-        buscaMoradorVisCad.setActionCommand("moradorCadV");
-
         jLabel4.setText("Tipo:");
-
-        jLabel5.setText("Morador:");
 
         botbuscaMoradorVisCad.setText("Buscar");
         botbuscaMoradorVisCad.setActionCommand("botBuscaMoradorVAlt");
+        botbuscaMoradorVisCad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botbuscaMoradorVisCadMouseClicked(evt);
+            }
+        });
 
         cadastrarVisitante.setBackground(new java.awt.Color(0, 153, 0));
         cadastrarVisitante.setForeground(new java.awt.Color(255, 255, 255));
         cadastrarVisitante.setText("Cadastrar");
         cadastrarVisitante.setActionCommand("cadastrarVisitante");
+        cadastrarVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastrarVisitanteMouseClicked(evt);
+            }
+        });
 
         excluirVisitante.setBackground(new java.awt.Color(204, 0, 0));
         excluirVisitante.setForeground(new java.awt.Color(255, 255, 255));
         excluirVisitante.setText("Excluir");
         excluirVisitante.setActionCommand("excluirVisitante");
+        excluirVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                excluirVisitanteMouseClicked(evt);
+            }
+        });
 
         alterarVisitante.setBackground(new java.awt.Color(102, 102, 102));
         alterarVisitante.setForeground(new java.awt.Color(255, 255, 255));
         alterarVisitante.setText("Alterar");
         alterarVisitante.setActionCommand("alterarVisitante");
+        alterarVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                alterarVisitanteMouseClicked(evt);
+            }
+        });
 
         jLabel3.setText("Data de Nasc.:");
+
+        labelInvisivel.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,40 +115,37 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5))
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buscaMoradorVisCad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nomeVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nomeVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rgVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tipoVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botbuscaMoradorVisCad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(excluirVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(alterarVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cadastrarVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(rgVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataNascimentoCadVist))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tipoVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botbuscaMoradorVisCad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(excluirVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(alterarVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cadastrarVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(labelInvisivel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,23 +159,20 @@ public class CadastroVisitante extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(rgVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dataNascimentoCadVist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tipoVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(14, 14, 14)
+                    .addComponent(jLabel4)
+                    .addComponent(botbuscaMoradorVisCad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelInvisivel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buscaMoradorVisCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(botbuscaMoradorVisCad)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(excluirVisitante)
                     .addComponent(cadastrarVisitante)
-                    .addComponent(alterarVisitante))
-                .addGap(20, 20, 20))
+                    .addComponent(alterarVisitante)
+                    .addComponent(excluirVisitante))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,9 +195,85 @@ public class CadastroVisitante extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tipoVisitanteCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoVisitanteCadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoVisitanteCadActionPerformed
+    private void cadastrarVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarVisitanteMouseClicked
+        
+        String nome = nomeVisitanteCad.getSelectedText();
+        String rg = rgVisitanteCad.getSelectedText();
+        String dataNascimento = dataNascimentoCadVist.getSelectedText();
+        String tipoVisitante = tipoVisitanteCad.getSelectedItem().toString();
+        
+        if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !tipoVisitante.isEmpty()){
+            
+            try {
+                
+                VisitanteController.cadastrarVisitante(nome, rg, dataNascimento, tipoVisitante);
+                
+            } catch (Exception ex) {
+                
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                
+            }
+        }
+    }//GEN-LAST:event_cadastrarVisitanteMouseClicked
+
+    private void alterarVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarVisitanteMouseClicked
+        String nome = nomeVisitanteCad.getSelectedText();
+        String rg = rgVisitanteCad.getSelectedText();
+        String dataNascimento = dataNascimentoCadVist.getSelectedText();
+        String tipoVisitante = tipoVisitanteCad.getSelectedItem().toString();
+        
+        if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !tipoVisitante.isEmpty()){
+            
+            try {
+                
+                VisitanteController.alterarVisitante(nome, rg, nome, tipoVisitante);
+                
+            } catch (Exception ex) {
+                
+                 JOptionPane.showMessageDialog(null, ex.getMessage());
+                
+            }
+        }
+    }//GEN-LAST:event_alterarVisitanteMouseClicked
+
+    private void excluirVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirVisitanteMouseClicked
+       
+        try {
+        
+            int id = Integer.parseInt(labelInvisivel.getText());
+        
+            if(id == 0)
+                VisitanteController.excluirVisitante(id);
+                
+            } catch (Exception ex) {
+                
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                
+            }
+    }//GEN-LAST:event_excluirVisitanteMouseClicked
+
+    private void botbuscaMoradorVisCadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botbuscaMoradorVisCadMouseClicked
+        
+        Visitante visitante = new Visitante();
+        
+        try {
+            String rg = rgVisitanteCad.getText();
+            
+            if(!rg.isEmpty())         
+            visitante = VisitanteController.consultarVisitante(rg);
+
+            nomeVisitanteCad.setText(visitante.getNome());
+            rgVisitanteCad.setText(visitante.getRg());
+            dataNascimentoCadVist.setText(visitante.getDtNascimento().toString());
+            tipoVisitanteCad.setSelectedItem(visitante.getTipoVisitante());
+            labelInvisivel.setText(String.valueOf(visitante.getId()));
+            
+        } catch (Exception ex) {
+            
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            
+        } 
+    }//GEN-LAST:event_botbuscaMoradorVisCadMouseClicked
 
     /**
      * @param args the command line arguments
@@ -226,16 +313,15 @@ public class CadastroVisitante extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterarVisitante;
     private javax.swing.JButton botbuscaMoradorVisCad;
-    private javax.swing.JComboBox<String> buscaMoradorVisCad;
     private javax.swing.JButton cadastrarVisitante;
+    private javax.swing.JFormattedTextField dataNascimentoCadVist;
     private javax.swing.JButton excluirVisitante;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelInvisivel;
     private javax.swing.JTextField nomeVisitanteCad;
     private javax.swing.JTextField rgVisitanteCad;
     private javax.swing.JComboBox<String> tipoVisitanteCad;
