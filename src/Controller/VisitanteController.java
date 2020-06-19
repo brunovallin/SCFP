@@ -18,7 +18,7 @@ public class VisitanteController {
             visitante.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
             visitante.setNome(nome);
             
-            switch (tipoVisitante){
+            switch (tipoVisitante.toUpperCase()){
                 case "VISITANTE":
                     visitante.setTipoVisitante(TipoVisitante.VISITANTE);
                 break;
@@ -44,7 +44,7 @@ public class VisitanteController {
             Visitante visitante = new Visitante();
 
             visitante.consultarVisitante(rg.replace(".", "").replace("-", "").replace("/", ""));
-
+            
             return visitante;
 
         } catch (Exception e) {
@@ -65,16 +65,17 @@ public class VisitanteController {
 
     }
 
-    public static void alterarVisitante(String nome, String rg, String dtNasc, String tipoVisitante) throws Exception{
+    public static void alterarVisitante(String id, String nome, String rg, String dtNasc, String tipoVisitante) throws Exception{
 
         try{
         Visitante visitante = new Visitante();
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
 
+        visitante.setId(Integer.parseInt(id));
         visitante.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
         visitante.setNome(nome);
         
-        switch (tipoVisitante){
+        switch (tipoVisitante.toUpperCase()){
             case "VISITANTE":
                 visitante.setTipoVisitante(TipoVisitante.VISITANTE);
             break;
@@ -88,8 +89,8 @@ public class VisitanteController {
 
         visitante.alterarVisitante();
     
-         }catch (Exception e) {
-        throw e;
+        }catch (Exception e) { 
+            throw e;
         }
     }
 

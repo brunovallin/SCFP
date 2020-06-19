@@ -22,6 +22,9 @@ public class Visitante extends Pessoa {
 		try {
 			Visitante visitante = DAOVisitante.consultarVisitante(rg);
 			this.setId(visitante.getId());
+                        if(this.getId() == 0){
+                            throw new Exception("Visitante não encontrado!");
+                        }
 			this.setNome(visitante.getNome());
 			this.setDtNascimento(visitante.getDtNascimento());
 			this.setRg(visitante.getRg());			

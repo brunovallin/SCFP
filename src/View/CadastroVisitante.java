@@ -2,9 +2,10 @@ package View;
 
 import Controller.VisitanteController;
 import Model.Visitante;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -33,31 +34,33 @@ public class CadastroVisitante extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tipoVisitanteCad = new javax.swing.JComboBox<>();
-        nomeVisitanteCad = new javax.swing.JTextField();
-        rgVisitanteCad = new javax.swing.JTextField();
+        cbTipoVisitanteCad = new javax.swing.JComboBox<>();
+        txtNomeCad = new javax.swing.JTextField();
+        txtRgCad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         botbuscaMoradorVisCad = new javax.swing.JButton();
         cadastrarVisitante = new javax.swing.JButton();
         excluirVisitante = new javax.swing.JButton();
         alterarVisitante = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        dataNascimentoCadVist = new javax.swing.JFormattedTextField();
         labelInvisivel = new javax.swing.JLabel();
+        ftxtDataNascCad = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SCFP - CADASTRO DE VISITANTES");
+
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setText("Nome:");
 
         jLabel2.setText("RG:");
 
-        tipoVisitanteCad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Visitante", "Prestador de Serviço" }));
-        tipoVisitanteCad.setActionCommand("tipoVisitanteCad");
+        cbTipoVisitanteCad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Visitante", "Prestador de Serviço" }));
+        cbTipoVisitanteCad.setActionCommand("tipoVisitanteCad");
 
-        nomeVisitanteCad.setName("nomeVisitanteCad"); // NOI18N
+        txtNomeCad.setName("txtNomeCad"); // NOI18N
 
-        rgVisitanteCad.setName("rgVisitanteCad"); // NOI18N
+        txtRgCad.setName("txtRgCad"); // NOI18N
 
         jLabel4.setText("Tipo:");
 
@@ -102,6 +105,15 @@ public class CadastroVisitante extends javax.swing.JFrame {
         jLabel3.setText("Data de Nasc.:");
 
         labelInvisivel.setEnabled(false);
+        labelInvisivel.setFocusable(false);
+        labelInvisivel.setVisible(false);
+
+        try {
+            MaskFormatter mascaradata = new MaskFormatter("##/##/####");
+            ftxtDataNascCad = new JFormattedTextField(mascaradata);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao iniciar campo data");
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,15 +131,15 @@ public class CadastroVisitante extends javax.swing.JFrame {
                         .addComponent(jLabel4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nomeVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeCad, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rgVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRgCad, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dataNascimentoCadVist))
+                        .addComponent(ftxtDataNascCad))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tipoVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbTipoVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botbuscaMoradorVisCad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -138,8 +150,8 @@ public class CadastroVisitante extends javax.swing.JFrame {
                         .addComponent(cadastrarVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(labelInvisivel)
+                .addContainerGap()
+                .addComponent(labelInvisivel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -148,29 +160,27 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(nomeVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(rgVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRgCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(dataNascimentoCadVist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftxtDataNascCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tipoVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTipoVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(botbuscaMoradorVisCad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelInvisivel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(labelInvisivel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastrarVisitante)
                     .addComponent(alterarVisitante)
                     .addComponent(excluirVisitante))
                 .addContainerGap())
         );
-
-        labelInvisivel.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,84 +203,96 @@ public class CadastroVisitante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarVisitanteActionPerformed
-        String nome = nomeVisitanteCad.getText();
-        String rg = rgVisitanteCad.getText();
-        String dataNascimento = dataNascimentoCadVist.getText();
-        String tipoVisitante = tipoVisitanteCad.getSelectedItem().toString();
-        labelInvisivel.setVisible(false);
-        
-        
+        String nome = txtNomeCad.getText().toUpperCase();
+        String rg = txtRgCad.getText().toUpperCase();
+        String dataNascimento = ftxtDataNascCad.getText();
+        String tipoVisitante = cbTipoVisitanteCad.getSelectedItem().toString();                
         try {           
             if(nome != null && rg != null && dataNascimento != null && !tipoVisitante.equals("Selecione"))
                 VisitanteController.cadastrarVisitante(nome, rg, dataNascimento, tipoVisitante);            
             else 
                 throw new Exception("Dados Insuficientes para o Cadastro!");
             JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+            limpaCampos();
         } catch (Exception ex) {                
             JOptionPane.showMessageDialog(null, ex.getMessage());                            
         }
     }//GEN-LAST:event_cadastrarVisitanteActionPerformed
 
     private void botbuscaMoradorVisCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botbuscaMoradorVisCadActionPerformed
-         Visitante visitante = new Visitante();
-         labelInvisivel.setVisible(false);
-        
+        Visitante visitante = new Visitante();
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            String rg = rgVisitanteCad.getText();
+            String rg = txtRgCad.getText().toUpperCase();
             
             if(!rg.isEmpty())         
-            visitante = VisitanteController.consultarVisitante(rg);
+                visitante = VisitanteController.consultarVisitante(rg);
 
-            nomeVisitanteCad.setText(visitante.getNome());
-            rgVisitanteCad.setText(visitante.getRg());
-            dataNascimentoCadVist.setText(visitante.getDtNascimento().toString());
-            tipoVisitanteCad.setSelectedItem(visitante.getTipoVisitante());
-            labelInvisivel.setText(String.valueOf(visitante.getId()));
-            labelInvisivel.setVisible(false);
+            txtNomeCad.setText(visitante.getNome());
+            txtRgCad.setText(visitante.getRg());
             
-        } catch (Exception ex) {
+            ftxtDataNascCad.setText(data.format(visitante.getDtNascimento()));
             
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-            
-        } 
+            switch(visitante.getTipoVisitante()){
+                case VISITANTE:
+                    cbTipoVisitanteCad.setSelectedIndex(1);
+                    break;
+                case PRESTADORSERVICO:
+                    cbTipoVisitanteCad.setSelectedIndex(2);
+                    break;
+                default:
+                    cbTipoVisitanteCad.setSelectedIndex(0);
+                    break;
+            }                        
+            labelInvisivel.setText(String.valueOf(visitante.getId()));                        
+        } catch (Exception ex) {            
+            limpaCampos();
+            JOptionPane.showMessageDialog(null, ex.getMessage());            
+        }
     }//GEN-LAST:event_botbuscaMoradorVisCadActionPerformed
 
     private void excluirVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirVisitanteActionPerformed
-        labelInvisivel.setVisible(false);
-        try {
-        
+        try {        
             int id = Integer.parseInt(labelInvisivel.getText());
         
-            if(id == 0)
+            if(id != 0)
                 VisitanteController.excluirVisitante(id);
-                
-            } catch (Exception ex) {
-                
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-                
+            else{                
+                throw new Exception("Visitante não cadastrado!");
+            }
+            JOptionPane.showMessageDialog(null, "Visitante Excluído com sucesso!");
+            limpaCampos();
+            } catch (Exception ex) {                
+                JOptionPane.showMessageDialog(null, ex.getMessage());                
             }
     }//GEN-LAST:event_excluirVisitanteActionPerformed
 
     private void alterarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarVisitanteActionPerformed
-         String nome = nomeVisitanteCad.getSelectedText();
-        String rg = rgVisitanteCad.getSelectedText();
-        String dataNascimento = dataNascimentoCadVist.getSelectedText();
-        String tipoVisitante = tipoVisitanteCad.getSelectedItem().toString();
+        String id = labelInvisivel.getText();
+        String nome = txtNomeCad.getText();
+        String rg = txtRgCad.getText();
+        String dataNascimento = ftxtDataNascCad.getText();
+        String tipoVisitante = cbTipoVisitanteCad.getSelectedItem().toString();
         
-        if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !tipoVisitante.isEmpty()){
-            
-            try {
-                
-                VisitanteController.alterarVisitante(nome, rg, nome, tipoVisitante);
-                
-            } catch (Exception ex) {
-                
-                 JOptionPane.showMessageDialog(null, ex.getMessage());
-                
+        if(nome != null && rg != null && dataNascimento!= null && !tipoVisitante.equals("Selecione")){
+            try {                
+                VisitanteController.alterarVisitante(id,nome, rg, dataNascimento, tipoVisitante);
+                JOptionPane.showMessageDialog(null, "Visitante alterado com sucesso!");
+                limpaCampos();
+            } catch (Exception ex) {                
+                 JOptionPane.showMessageDialog(null, ex.getMessage());                
             }
         }
     }//GEN-LAST:event_alterarVisitanteActionPerformed
 
+    private void limpaCampos(){
+        labelInvisivel.setText("");
+        txtNomeCad.setText("");
+        txtRgCad.setText("");
+        cbTipoVisitanteCad.setSelectedIndex(0);
+        ftxtDataNascCad.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -311,16 +333,16 @@ public class CadastroVisitante extends javax.swing.JFrame {
     private javax.swing.JButton alterarVisitante;
     private javax.swing.JButton botbuscaMoradorVisCad;
     private javax.swing.JButton cadastrarVisitante;
-    private javax.swing.JFormattedTextField dataNascimentoCadVist;
+    private javax.swing.JComboBox<String> cbTipoVisitanteCad;
     private javax.swing.JButton excluirVisitante;
+    private javax.swing.JFormattedTextField ftxtDataNascCad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelInvisivel;
-    private javax.swing.JTextField nomeVisitanteCad;
-    private javax.swing.JTextField rgVisitanteCad;
-    private javax.swing.JComboBox<String> tipoVisitanteCad;
+    private javax.swing.JTextField txtNomeCad;
+    private javax.swing.JTextField txtRgCad;
     // End of variables declaration//GEN-END:variables
 }
