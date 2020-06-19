@@ -5,6 +5,10 @@
  */
 package View;
 
+import Controller.MoradorController;
+import Controller.VisitanteController;
+import Model.Morador;
+import Model.Visitante;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +48,7 @@ public class SCFP extends javax.swing.JFrame {
         botBuscaVisitanteLog = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         detalheVisitanteLog = new javax.swing.JTextArea();
-        nomeMoradorLog = new javax.swing.JTextField();
+        rgMoradorLog = new javax.swing.JTextField();
         blocoMoradorLog = new javax.swing.JTextField();
         numeroApartamentoLog = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -120,17 +124,17 @@ public class SCFP extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(detalheVisitanteLog);
 
-        nomeMoradorLog.setForeground(new java.awt.Color(204, 204, 204));
-        nomeMoradorLog.setText("Nome");
-        nomeMoradorLog.setName("nomeMoradorLog"); // NOI18N
-        nomeMoradorLog.addFocusListener(new java.awt.event.FocusAdapter() {
+        rgMoradorLog.setForeground(new java.awt.Color(204, 204, 204));
+        rgMoradorLog.setText("Rg");
+        rgMoradorLog.setName("rgMoradorLog"); // NOI18N
+        rgMoradorLog.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                nomeMoradorLogFocusLost(evt);
+                rgMoradorLogFocusLost(evt);
             }
         });
-        nomeMoradorLog.addMouseListener(new java.awt.event.MouseAdapter() {
+        rgMoradorLog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nomeMoradorLogMouseClicked(evt);
+                rgMoradorLogMouseClicked(evt);
             }
         });
 
@@ -167,6 +171,11 @@ public class SCFP extends javax.swing.JFrame {
 
         botBuscaMoradorLog.setText("Buscar Morador");
         botBuscaMoradorLog.setActionCommand("buscarMoradorLog");
+        botBuscaMoradorLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botBuscaMoradorLogActionPerformed(evt);
+            }
+        });
 
         gridLog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -215,7 +224,7 @@ public class SCFP extends javax.swing.JFrame {
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(numeroApartamentoLog)
                                                 .addComponent(blocoMoradorLog)
-                                                .addComponent(nomeMoradorLog)))))
+                                                .addComponent(rgMoradorLog)))))
                                 .addGap(22, 22, 22)
                                 .addComponent(jLabel4))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -251,7 +260,7 @@ public class SCFP extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(nomeMoradorLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rgMoradorLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(blocoMoradorLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -334,7 +343,34 @@ public class SCFP extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCadastroFuncionarioActionPerformed
 
     private void botBuscaVisitanteLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBuscaVisitanteLogActionPerformed
+        Visitante visitante = new Visitante();
+        String rg = rgVisitanteLog.getText();
         
+        try {
+            if(rg != null){
+                VisitanteController.consultarVisitante(rg);
+                
+                nomeVisitanteLog.setText(visitante.getNome());
+            rgVisitanteLog.setText(visitante.getRg());
+            
+            switch(visitante.getTipoVisitante()){
+                case VISITANTE:
+                    comboDescLog.setSelectedIndex(1);
+                    break;
+                case PRESTADORSERVICO:
+                    comboDescLog.setSelectedIndex(2);
+                    break;
+                default:
+                    comboDescLog.setSelectedIndex(0);
+                    break;
+            }
+                }
+            else 
+                throw new Exception("para fazer a busca, precisa do rg do visitante");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_botBuscaVisitanteLogActionPerformed
 
     private void comboDescLogItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDescLogItemStateChanged
@@ -355,19 +391,19 @@ public class SCFP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nomeVisitanteLogFocusLost
 
-    private void nomeMoradorLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomeMoradorLogFocusLost
-        if(nomeMoradorLog.getText().equals("")){
-            nomeMoradorLog.setText("Nome");
-            nomeMoradorLog.setForeground(Color.lightGray);
+    private void rgMoradorLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rgMoradorLogFocusLost
+        if(rgMoradorLog.getText().equals("")){
+            rgMoradorLog.setText("Nome");
+            rgMoradorLog.setForeground(Color.lightGray);
         }
-    }//GEN-LAST:event_nomeMoradorLogFocusLost
+    }//GEN-LAST:event_rgMoradorLogFocusLost
 
-    private void nomeMoradorLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomeMoradorLogMouseClicked
-        if(nomeMoradorLog.getText().equals("Nome")){
-            nomeMoradorLog.setText("");
-            nomeMoradorLog.setForeground(Color.black);
+    private void rgMoradorLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rgMoradorLogMouseClicked
+        if(rgMoradorLog.getText().equals("Nome")){
+            rgMoradorLog.setText("");
+            rgMoradorLog.setForeground(Color.black);
         }
-    }//GEN-LAST:event_nomeMoradorLogMouseClicked
+    }//GEN-LAST:event_rgMoradorLogMouseClicked
 
     private void blocoMoradorLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_blocoMoradorLogMouseClicked
         if(blocoMoradorLog.getText().equals("Bloco")){
@@ -410,6 +446,24 @@ public class SCFP extends javax.swing.JFrame {
             detalheVisitanteLog.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_detalheVisitanteLogMouseClicked
+
+    private void botBuscaMoradorLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBuscaMoradorLogActionPerformed
+        try {
+            String rg = rgMoradorLog.getText();
+            Morador morador = MoradorController.consultarMorador(rg);
+            
+            if(rg != null){
+                
+                blocoMoradorLog.setText(morador.getBloco());
+                numeroApartamentoLog.setText(Integer.toString(morador.getnApt()));
+            }
+            else{
+                throw new Exception("Para fazer a busca, precisa do morador - rg");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_botBuscaMoradorLogActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,9 +520,9 @@ public class SCFP extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCadastroFuncionario;
     private javax.swing.JMenuItem menuCadastroMorador;
     private javax.swing.JMenuItem menuCadastroVisitante;
-    private javax.swing.JTextField nomeMoradorLog;
     private javax.swing.JTextField nomeVisitanteLog;
     private javax.swing.JTextField numeroApartamentoLog;
+    private javax.swing.JTextField rgMoradorLog;
     private javax.swing.JTextField rgVisitanteLog;
     // End of variables declaration//GEN-END:variables
 }

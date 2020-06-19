@@ -113,7 +113,7 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="numeroApartamentoLog" max="32767" attributes="0"/>
                                                   <Component id="blocoMoradorLog" max="32767" attributes="0"/>
-                                                  <Component id="nomeMoradorLog" max="32767" attributes="0"/>
+                                                  <Component id="rgMoradorLog" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -164,7 +164,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nomeMoradorLog" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rgMoradorLog" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="blocoMoradorLog" min="-2" max="-2" attributes="0"/>
@@ -282,17 +282,17 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="nomeMoradorLog">
+        <Component class="javax.swing.JTextField" name="rgMoradorLog">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nome"/>
-            <Property name="name" type="java.lang.String" value="nomeMoradorLog" noResource="true"/>
+            <Property name="text" type="java.lang.String" value="Rg"/>
+            <Property name="name" type="java.lang.String" value="rgMoradorLog" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nomeMoradorLogFocusLost"/>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="nomeMoradorLogMouseClicked"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="rgMoradorLogFocusLost"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="rgMoradorLogMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="blocoMoradorLog">
@@ -332,6 +332,9 @@
             <Property name="text" type="java.lang.String" value="Buscar Morador"/>
             <Property name="actionCommand" type="java.lang.String" value="buscarMoradorLog"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botBuscaMoradorLogActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
