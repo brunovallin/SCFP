@@ -39,9 +39,7 @@ public class Visitante extends Pessoa {
 			this.setId(visitante.getId());
 			this.setNome(visitante.getNome());
 			this.setDtNascimento(visitante.getDtNascimento());
-			this.setRg(visitante.getRg());
-			this.setmoradorResponsavel(visitante.getmoradorResponsavel());
-            this.setmoradorResponsavel(visitante.getmoradorResponsavel().getId());
+			this.setRg(visitante.getRg());			
             this.setTipoVisitante(visitante.getTipoVisitante());            
 		} catch (Exception e) {
 			throw e;
@@ -50,10 +48,7 @@ public class Visitante extends Pessoa {
     
     public static ArrayList<Visitante> consultaVisitantes() throws Exception {
         try {
-            ArrayList<Visitante> visitantes = DAOVisitante.consultarVisitantes();
-            for(Visitante visitante : visitantes){
-                visitante.setmoradorResponsavel(visitante.getmoradorResponsavel().getId());
-            }
+            ArrayList<Visitante> visitantes = DAOVisitante.consultarVisitantes();            
             return visitantes;
         } catch (Exception e) {
             throw e;
