@@ -15,7 +15,7 @@ public class Conexao {
 	
 	public Connection getConexaoMySQL() throws ClassNotFoundException {	 
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			this.conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetopoo?useTimezone=true&serverTimezone=UTC", "root", "Mayfire.861");
 			status = true;
 		} catch (final SQLException e) {
