@@ -18,6 +18,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
     public CadastroVisitante() {
         initComponents();
         this.setResizable(false);
+        
     }
 
     /**
@@ -62,9 +63,9 @@ public class CadastroVisitante extends javax.swing.JFrame {
 
         botbuscaMoradorVisCad.setText("Buscar");
         botbuscaMoradorVisCad.setActionCommand("botBuscaMoradorVAlt");
-        botbuscaMoradorVisCad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botbuscaMoradorVisCadMouseClicked(evt);
+        botbuscaMoradorVisCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botbuscaMoradorVisCadActionPerformed(evt);
             }
         });
 
@@ -72,11 +73,6 @@ public class CadastroVisitante extends javax.swing.JFrame {
         cadastrarVisitante.setForeground(new java.awt.Color(255, 255, 255));
         cadastrarVisitante.setText("Cadastrar");
         cadastrarVisitante.setActionCommand("cadastrarVisitante");
-        cadastrarVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cadastrarVisitanteMouseClicked(evt);
-            }
-        });
         cadastrarVisitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastrarVisitanteActionPerformed(evt);
@@ -87,9 +83,9 @@ public class CadastroVisitante extends javax.swing.JFrame {
         excluirVisitante.setForeground(new java.awt.Color(255, 255, 255));
         excluirVisitante.setText("Excluir");
         excluirVisitante.setActionCommand("excluirVisitante");
-        excluirVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                excluirVisitanteMouseClicked(evt);
+        excluirVisitante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirVisitanteActionPerformed(evt);
             }
         });
 
@@ -97,15 +93,14 @@ public class CadastroVisitante extends javax.swing.JFrame {
         alterarVisitante.setForeground(new java.awt.Color(255, 255, 255));
         alterarVisitante.setText("Alterar");
         alterarVisitante.setActionCommand("alterarVisitante");
-        alterarVisitante.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                alterarVisitanteMouseClicked(evt);
+        alterarVisitante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarVisitanteActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Data de Nasc.:");
 
-        labelInvisivel.setText("Não estou aqui !");
         labelInvisivel.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -167,13 +162,15 @@ public class CadastroVisitante extends javax.swing.JFrame {
                     .addComponent(botbuscaMoradorVisCad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelInvisivel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastrarVisitante)
                     .addComponent(alterarVisitante)
                     .addComponent(excluirVisitante))
                 .addContainerGap())
         );
+
+        labelInvisivel.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,29 +192,67 @@ public class CadastroVisitante extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastrarVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarVisitanteMouseClicked
-        
-        String nome = nomeVisitanteCad.getSelectedText();
-        String rg = rgVisitanteCad.getSelectedText();
-        String dataNascimento = dataNascimentoCadVist.getSelectedText();
+    private void cadastrarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarVisitanteActionPerformed
+        String nome = nomeVisitanteCad.getText();
+        String rg = rgVisitanteCad.getText();
+        String dataNascimento = dataNascimentoCadVist.getText();
         String tipoVisitante = tipoVisitanteCad.getSelectedItem().toString();
+        labelInvisivel.setVisible(false);
         
-        if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !tipoVisitante.isEmpty()){
+        
+        try {           
+            if(nome != null && rg != null && dataNascimento != null && !tipoVisitante.equals("Selecione"))
+                VisitanteController.cadastrarVisitante(nome, rg, dataNascimento, tipoVisitante);            
+            else 
+                throw new Exception("Dados Insuficientes para o Cadastro!");
+            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+        } catch (Exception ex) {                
+            JOptionPane.showMessageDialog(null, ex.getMessage());                            
+        }
+    }//GEN-LAST:event_cadastrarVisitanteActionPerformed
+
+    private void botbuscaMoradorVisCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botbuscaMoradorVisCadActionPerformed
+         Visitante visitante = new Visitante();
+         labelInvisivel.setVisible(false);
+        
+        try {
+            String rg = rgVisitanteCad.getText();
             
-            try {
-                
-                VisitanteController.cadastrarVisitante(nome, rg, dataNascimento, tipoVisitante);
+            if(!rg.isEmpty())         
+            visitante = VisitanteController.consultarVisitante(rg);
+
+            nomeVisitanteCad.setText(visitante.getNome());
+            rgVisitanteCad.setText(visitante.getRg());
+            dataNascimentoCadVist.setText(visitante.getDtNascimento().toString());
+            tipoVisitanteCad.setSelectedItem(visitante.getTipoVisitante());
+            labelInvisivel.setText(String.valueOf(visitante.getId()));
+            labelInvisivel.setVisible(false);
+            
+        } catch (Exception ex) {
+            
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            
+        } 
+    }//GEN-LAST:event_botbuscaMoradorVisCadActionPerformed
+
+    private void excluirVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirVisitanteActionPerformed
+        labelInvisivel.setVisible(false);
+        try {
+        
+            int id = Integer.parseInt(labelInvisivel.getText());
+        
+            if(id == 0)
+                VisitanteController.excluirVisitante(id);
                 
             } catch (Exception ex) {
                 
                 JOptionPane.showMessageDialog(null, ex.getMessage());
                 
             }
-        }
-    }//GEN-LAST:event_cadastrarVisitanteMouseClicked
+    }//GEN-LAST:event_excluirVisitanteActionPerformed
 
-    private void alterarVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarVisitanteMouseClicked
-        String nome = nomeVisitanteCad.getSelectedText();
+    private void alterarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarVisitanteActionPerformed
+         String nome = nomeVisitanteCad.getSelectedText();
         String rg = rgVisitanteCad.getSelectedText();
         String dataNascimento = dataNascimentoCadVist.getSelectedText();
         String tipoVisitante = tipoVisitanteCad.getSelectedItem().toString();
@@ -234,64 +269,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 
             }
         }
-    }//GEN-LAST:event_alterarVisitanteMouseClicked
-
-    private void excluirVisitanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirVisitanteMouseClicked
-       
-        try {
-        
-            int id = Integer.parseInt(labelInvisivel.getText());
-        
-            if(id == 0)
-                VisitanteController.excluirVisitante(id);
-                
-            } catch (Exception ex) {
-                
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-                
-            }
-    }//GEN-LAST:event_excluirVisitanteMouseClicked
-
-    private void botbuscaMoradorVisCadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botbuscaMoradorVisCadMouseClicked
-        
-        Visitante visitante = new Visitante();
-        
-        try {
-            String rg = rgVisitanteCad.getText();
-            
-            if(!rg.isEmpty())         
-            visitante = VisitanteController.consultarVisitante(rg);
-
-            nomeVisitanteCad.setText(visitante.getNome());
-            rgVisitanteCad.setText(visitante.getRg());
-            dataNascimentoCadVist.setText(visitante.getDtNascimento().toString());
-            tipoVisitanteCad.setSelectedItem(visitante.getTipoVisitante());
-            labelInvisivel.setText(String.valueOf(visitante.getId()));
-            
-        } catch (Exception ex) {
-            
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-            
-        } 
-    }//GEN-LAST:event_botbuscaMoradorVisCadMouseClicked
-
-    private void cadastrarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarVisitanteActionPerformed
-        String nome = nomeVisitanteCad.getText();
-        String rg = rgVisitanteCad.getText();
-        String dataNascimento = dataNascimentoCadVist.getText();
-        String tipoVisitante = tipoVisitanteCad.getSelectedItem().toString();
-        
-        
-        try {           
-            if(nome != null && rg != null && dataNascimento != null && !tipoVisitante.equals("Selecione"))
-                VisitanteController.cadastrarVisitante(nome, rg, dataNascimento, tipoVisitante);            
-            else 
-                throw new Exception("Dados Insuficientes para o Cadastro!");
-            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
-        } catch (Exception ex) {                
-            JOptionPane.showMessageDialog(null, ex.getMessage());                            
-        }
-    }//GEN-LAST:event_cadastrarVisitanteActionPerformed
+    }//GEN-LAST:event_alterarVisitanteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,6 +302,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CadastroVisitante().setVisible(true);
+                
             }
         });
     }

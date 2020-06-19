@@ -64,9 +64,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         cadastrarFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         cadastrarFuncionario.setText("Cadastrar");
         cadastrarFuncionario.setActionCommand("cadastrarFuncionario");
-        cadastrarFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cadastrarFuncionarioMouseClicked(evt);
+        cadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarFuncionarioActionPerformed(evt);
             }
         });
 
@@ -74,9 +74,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         excluirFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         excluirFuncionario.setText("Excluir");
         excluirFuncionario.setActionCommand("excluirFuncionario");
-        excluirFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                excluirFuncionarioMouseClicked(evt);
+        excluirFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirFuncionarioActionPerformed(evt);
             }
         });
 
@@ -84,23 +84,22 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         alterarFuncionario.setForeground(new java.awt.Color(255, 255, 255));
         alterarFuncionario.setText("Alterar");
         alterarFuncionario.setActionCommand("incluirFuncionario");
-        alterarFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                alterarFuncionarioMouseClicked(evt);
+        alterarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarFuncionarioActionPerformed(evt);
             }
         });
 
         botBuscaFuncionarioCad.setText("Buscar");
         botBuscaFuncionarioCad.setActionCommand("buscarfuncionario");
-        botBuscaFuncionarioCad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botBuscaFuncionarioCadMouseClicked(evt);
+        botBuscaFuncionarioCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botBuscaFuncionarioCadActionPerformed(evt);
             }
         });
 
         funcaoCadFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Porteiro", "Faxineiro", "Segurança", "Zelador" }));
 
-        labelInvisivel2.setText("Não Estou aqui !");
         labelInvisivel2.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -189,12 +188,12 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastrarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarFuncionarioMouseClicked
-        
+    private void cadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarFuncionarioActionPerformed
         String nome = nomeFuncionarioCad.getSelectedText();
         String rg = rgFuncionarioCad.getSelectedText();
         String dataNascimento = dataNascfuncionarioCad.getSelectedText();
         String funcao = funcaoCadFuncionario.getSelectedItem().toString();
+        labelInvisivel2.setVisible(false);
         
          if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !funcao.isEmpty()){
              
@@ -208,14 +207,14 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                  
              }
          } 
-    }//GEN-LAST:event_cadastrarFuncionarioMouseClicked
+    }//GEN-LAST:event_cadastrarFuncionarioActionPerformed
 
-    private void alterarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarFuncionarioMouseClicked
-        
+    private void alterarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarFuncionarioActionPerformed
         String nome = nomeFuncionarioCad.getSelectedText();
         String rg = rgFuncionarioCad.getSelectedText();
         String dataNascimento = dataNascfuncionarioCad.getSelectedText();
         String funcao = funcaoCadFuncionario.getSelectedItem().toString();
+        labelInvisivel2.setVisible(false);
         
         if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !funcao.isEmpty()){
             
@@ -229,10 +228,10 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 
             }   
         }
-    }//GEN-LAST:event_alterarFuncionarioMouseClicked
+    }//GEN-LAST:event_alterarFuncionarioActionPerformed
 
-    private void excluirFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirFuncionarioMouseClicked
-        
+    private void excluirFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirFuncionarioActionPerformed
+        labelInvisivel2.setVisible(false);
         try {
             
              int id = Integer.parseInt(labelInvisivel2.getText());
@@ -245,10 +244,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
             
         }  
-    }//GEN-LAST:event_excluirFuncionarioMouseClicked
+    }//GEN-LAST:event_excluirFuncionarioActionPerformed
 
-    private void botBuscaFuncionarioCadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botBuscaFuncionarioCadMouseClicked
-        
+    private void botBuscaFuncionarioCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBuscaFuncionarioCadActionPerformed
         Funcionario funcionario = new Funcionario();
         
         try {
@@ -262,14 +260,14 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             dataNascfuncionarioCad.setText(funcionario.getDtNascimento().toString());
             funcaoCadFuncionario.setSelectedItem(funcionario.getTipoFuncionario());
             labelInvisivel2.setText(String.valueOf(funcionario.getId()));
+            labelInvisivel2.setVisible(false);
             
         } catch (Exception e) {
             
             JOptionPane.showMessageDialog(null, e.getMessage());
             
         }
-        
-    }//GEN-LAST:event_botBuscaFuncionarioCadMouseClicked
+    }//GEN-LAST:event_botBuscaFuncionarioCadActionPerformed
 
     /**
      * @param args the command line arguments

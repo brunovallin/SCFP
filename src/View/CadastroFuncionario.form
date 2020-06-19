@@ -167,7 +167,7 @@
             <Property name="actionCommand" type="java.lang.String" value="cadastrarFuncionario"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cadastrarFuncionarioMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarFuncionarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="excluirFuncionario">
@@ -182,7 +182,7 @@
             <Property name="actionCommand" type="java.lang.String" value="excluirFuncionario"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excluirFuncionarioMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirFuncionarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="alterarFuncionario">
@@ -197,7 +197,7 @@
             <Property name="actionCommand" type="java.lang.String" value="incluirFuncionario"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="alterarFuncionarioMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="alterarFuncionarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botBuscaFuncionarioCad">
@@ -206,7 +206,7 @@
             <Property name="actionCommand" type="java.lang.String" value="buscarfuncionario"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botBuscaFuncionarioCadMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botBuscaFuncionarioCadActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="dataNascfuncionarioCad">
@@ -229,7 +229,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelInvisivel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="N&#xe3;o Estou aqui !"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>

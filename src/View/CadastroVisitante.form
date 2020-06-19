@@ -116,7 +116,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="labelInvisivel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <EmptySpace pref="52" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cadastrarVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="alterarVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -174,7 +174,7 @@
             <Property name="actionCommand" type="java.lang.String" value="botBuscaMoradorVAlt"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botbuscaMoradorVisCadMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botbuscaMoradorVisCadActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="cadastrarVisitante">
@@ -189,7 +189,6 @@
             <Property name="actionCommand" type="java.lang.String" value="cadastrarVisitante"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cadastrarVisitanteMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarVisitanteActionPerformed"/>
           </Events>
         </Component>
@@ -205,7 +204,7 @@
             <Property name="actionCommand" type="java.lang.String" value="excluirVisitante"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excluirVisitanteMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirVisitanteActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="alterarVisitante">
@@ -220,7 +219,7 @@
             <Property name="actionCommand" type="java.lang.String" value="alterarVisitante"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="alterarVisitanteMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="alterarVisitanteActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -232,9 +231,11 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelInvisivel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="N&#xe3;o estou aqui !"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+          </AccessibilityProperties>
         </Component>
       </SubComponents>
     </Container>
