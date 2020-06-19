@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Controller.VisitanteController;
@@ -82,6 +77,11 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 cadastrarVisitanteMouseClicked(evt);
             }
         });
+        cadastrarVisitante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarVisitanteActionPerformed(evt);
+            }
+        });
 
         excluirVisitante.setBackground(new java.awt.Color(204, 0, 0));
         excluirVisitante.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,6 +105,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
 
         jLabel3.setText("Data de Nasc.:");
 
+        labelInvisivel.setText("Não estou aqui !");
         labelInvisivel.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -115,14 +116,13 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addContainerGap()
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(nomeVisitanteCad, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -143,7 +143,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
                         .addComponent(cadastrarVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(32, 32, 32)
                 .addComponent(labelInvisivel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -167,7 +167,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
                     .addComponent(botbuscaMoradorVisCad))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelInvisivel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastrarVisitante)
                     .addComponent(alterarVisitante)
@@ -274,6 +274,24 @@ public class CadastroVisitante extends javax.swing.JFrame {
             
         } 
     }//GEN-LAST:event_botbuscaMoradorVisCadMouseClicked
+
+    private void cadastrarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarVisitanteActionPerformed
+        String nome = nomeVisitanteCad.getText();
+        String rg = rgVisitanteCad.getText();
+        String dataNascimento = dataNascimentoCadVist.getText();
+        String tipoVisitante = tipoVisitanteCad.getSelectedItem().toString();
+        
+        
+        try {           
+            if(nome != null && rg != null && dataNascimento != null && !tipoVisitante.equals("Selecione"))
+                VisitanteController.cadastrarVisitante(nome, rg, dataNascimento, tipoVisitante);            
+            else 
+                throw new Exception("Dados Insuficientes para o Cadastro!");
+            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+        } catch (Exception ex) {                
+            JOptionPane.showMessageDialog(null, ex.getMessage());                            
+        }
+    }//GEN-LAST:event_cadastrarVisitanteActionPerformed
 
     /**
      * @param args the command line arguments

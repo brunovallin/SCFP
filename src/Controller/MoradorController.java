@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Enum.*;
+
 import Model.Morador;
-import Model.DAO.DAOMorador;
+import Model.DAO.DAOBloco;
 
 
 public class MoradorController{
@@ -45,13 +45,7 @@ public class MoradorController{
 
             morador.setNome(nome);
             morador.setDtNascimento((Date)data.parse(dtNasc));
-            morador.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
-            ArrayList<String> blocos;
-            blocos = DAOBloco.obterBloco();
-
-            if (!blocos.contains(bloco)){
-                throw new Exception("Bloco não encontrado.");
-            }
+            morador.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));                        
             morador.setBloco(bloco);
             morador.setnApt(Integer.parseInt(nApt));
             morador.setCodEstacionamento(Integer.parseInt(codEstacionamento));
@@ -71,13 +65,7 @@ public class MoradorController{
 
             morador.setNome(nome);
             morador.setDtNascimento((Date)data.parse(dtNasc));
-            morador.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
-            ArrayList<String> blocos;
-            blocos = DAOBloco.obterBloco();
-
-            if (!blocos.contains(bloco)){
-                throw new Exception("Bloco não encontrado.");
-            }
+            morador.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));                        
             morador.setBloco(bloco);
             morador.setnApt(Integer.parseInt(nApt));
             morador.setCodEstacionamento(Integer.parseInt(codEstacionamento));
@@ -97,25 +85,30 @@ public class MoradorController{
         }
     }
 
-    public static ArrayList<Morador> buscaMorador(String nome, String bloco, String nApt){
+    public static ArrayList<Morador> buscaMorador(String nome, String bloco, String nApt) throws Exception {
         
 
        if(nome != ""){
             if (nApt != ""){
-               return DAOMorador.consultarMoradorFiltro(nome, Integer.parseInt(nApt));
+               //return DAOMorador.consultarMoradorFiltro(nome, Integer.parseInt(nApt));
             }else{
-               return DAOMorador.consultarMoradorFiltro(nome);
+               //return DAOMorador.consultarMoradorFiltro(nome);
             }
        }else{
            if(bloco != "" && nApt != ""){
-               return DAOMorador.consultarMoradorFiltro(bloco, Integer.parseInt(nApt));
+               //return DAOMorador.consultarMoradorFiltro(bloco, Integer.parseInt(nApt));
            }else{
                throw new Exception("Filtro inválido!\nFiltros válidos:\nNome\nBloco + Num. Apartamento\n Nome + Num. Apartamento");
            }
        }
-
-
-
+       return null;
     }
-
+    
+    public static ArrayList<String> buscaBloco() throws Exception {
+        try {
+            return DAOBloco.buscaBlocos();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }
