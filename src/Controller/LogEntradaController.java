@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import Model.LogEntrada;
 import Model.Morador;
 import Model.Visitante;
-import jdk.internal.jline.internal.Log;
 
 
 public class LogEntradaController {
@@ -25,12 +24,12 @@ public class LogEntradaController {
 
     }
 
-    public static LogEntrada consultaLogsFiltro(String data) throws Exception{
+    public static ArrayList<LogEntrada> consultaLogsFiltro(String data) throws Exception{
 
         try {
             SimpleDateFormat dia = new SimpleDateFormat("dd/MM/yyyy");
 
-            LogEntrada.consultaEntradaDia((Date)dia.parse(data));
+            return LogEntrada.consultaEntradaDia((Date)dia.parse(data));
             
         } catch (Exception e) {
             throw e;
