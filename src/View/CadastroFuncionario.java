@@ -196,18 +196,16 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         String funcao = funcaoCadFuncionario.getSelectedItem().toString();
         labelInvisivel2.setVisible(false);
         
-         if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !funcao.isEmpty()){
-             
              try {
-                 
-                 FuncionarioController.cadastrarFuncionario(nome, rg, dataNascimento, funcao); 
-                 
+                 if(nome != null && rg != null && dataNascimento != null && !funcao.equals("Selecione")){
+                 FuncionarioController.cadastrarFuncionario(nome, rg, dataNascimento, funcao);
+                 }
+                 else{
+                     throw new Exception("Preencha os dados corretamente");
+                 }
              } catch (Exception e) {
-                 
                  JOptionPane.showMessageDialog(null, e.getMessage());
-                 
              }
-         } 
     }//GEN-LAST:event_cadastrarFuncionarioActionPerformed
 
     private void alterarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarFuncionarioActionPerformed
@@ -216,38 +214,39 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         String dataNascimento = dataNascfuncionarioCad.getSelectedText();
         String funcao = funcaoCadFuncionario.getSelectedItem().toString();
         labelInvisivel2.setVisible(false);
-        
-        if(!nome.isEmpty() && !rg.isEmpty() && !dataNascimento.isEmpty() && !funcao.isEmpty()){
-            
+
             try {
-                
+                if(nome != null && rg != null && dataNascimento != null && !funcao.equals("selecione")){
                 FuncionarioController.alterarFuncionario(nome, dataNascimento, rg, funcao);
-                
+                }
+                else{
+                    throw new Exception("Faça uma busca antes de alterar");
+                }
             } catch (Exception e) {
-                
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                
-            }   
-        }
+            }
     }//GEN-LAST:event_alterarFuncionarioActionPerformed
 
     private void excluirFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirFuncionarioActionPerformed
+        
         labelInvisivel2.setVisible(false);
+        
         try {
-            
              int id = Integer.parseInt(labelInvisivel2.getText());
         
             if(id == 0)
                 FuncionarioController.excluirFuncionario(id);
+            else
+                throw new Exception("faça uma busca para excluir");
             
         } catch (Exception e) {
-            
             JOptionPane.showMessageDialog(null, e.getMessage());
-            
         }  
     }//GEN-LAST:event_excluirFuncionarioActionPerformed
 
     private void botBuscaFuncionarioCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBuscaFuncionarioCadActionPerformed
+       
+        labelInvisivel2.setVisible(false);
         Funcionario funcionario = new Funcionario();
         
         try {
@@ -256,17 +255,18 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             
             if(!rg.isEmpty())
                 funcionario = FuncionarioController.consultaFuncionario(rg);
+            else
+                throw new Exception("preencha o campo do Rg, para fazer a busca");
+                
             nomeFuncionarioCad.setText(funcionario.getNome());
             rgFuncionarioCad.setText(funcionario.getRg());
             dataNascfuncionarioCad.setText(funcionario.getDtNascimento().toString());
             funcaoCadFuncionario.setSelectedItem(funcionario.getTipoFuncionario());
             labelInvisivel2.setText(String.valueOf(funcionario.getId()));
-            labelInvisivel2.setVisible(false);
+            
             
         } catch (Exception e) {
-            
             JOptionPane.showMessageDialog(null, e.getMessage());
-            
         }
     }//GEN-LAST:event_botBuscaFuncionarioCadActionPerformed
 
