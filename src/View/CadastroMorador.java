@@ -25,6 +25,7 @@ public class CadastroMorador extends javax.swing.JFrame {
     public CadastroMorador() throws Exception{
         initComponents();
         this.setResizable(false);            
+        
         carregaCbBloco();
     }
 
@@ -251,7 +252,7 @@ public class CadastroMorador extends javax.swing.JFrame {
 
     private void cadastrarMoradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarMoradorActionPerformed
         try {
-            MoradorController.cadastrarMorador(txtNomeCad.getText().trim(), fTxtDtNasc.getText().trim(), txtRgCad.getText().trim(), cbBloco.getSelectedItem().toString().trim(), txtNumeroApCad.getText().trim(), txtCodEstacionamentoCad.getText().trim());
+            MoradorController.cadastrarMorador(txtNomeCad.getText().trim(), fTxtDtNasc.getText().trim(), txtRgCad.getText().trim(), (String)cbBloco.getSelectedItem(), txtNumeroApCad.getText().trim(), txtCodEstacionamentoCad.getText().trim());
             JOptionPane.showMessageDialog(null, "Morador Cadastrado com sucesso!");
             limpaCampos();
         } catch (Exception e) {
@@ -289,7 +290,8 @@ public class CadastroMorador extends javax.swing.JFrame {
     }
 
     private void carregaCbBloco() {
-        try {
+        cbBloco.removeAllItems();
+        try {            
             for (String item : DAOBloco.buscaBlocos()) {
                 cbBloco.addItem(item);
             }

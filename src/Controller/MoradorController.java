@@ -47,10 +47,10 @@ public class MoradorController {
                         
             morador.setRg(rg.replace(".", "").replace("-", "").replace("/", "").toUpperCase());
             
-            morador.setBloco(bloco.toUpperCase());
+            morador.setBloco(bloco);
             
             morador.setnApt(Integer.parseInt(nApt));
-            if(!codEstacionamento.equals(null) && !codEstacionamento.isEmpty())
+            if(!codEstacionamento.isEmpty())
                 morador.setCodEstacionamento(Integer.parseInt(codEstacionamento));
 
             morador.cadastrarMorador();

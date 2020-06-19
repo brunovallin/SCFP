@@ -57,13 +57,16 @@ public class Morador extends Pessoa {
     public void consultarMorador(String rg) throws Exception {
         try {
             Morador morador = DAOMorador.consultarMorador(rg);
-            this.setId(morador.getId());
+            if(morador.getId() == 0)
+                throw new Exception("Morador não encontrado!");
+            this.setId(morador.getId());            
             this.setNome(morador.getNome());
             this.setDtNascimento(morador.getDtNascimento());
             this.setRg(morador.getRg());
             this.setBloco(morador.getBloco());
             this.setnApt(morador.getnApt());
             this.setCodEstacionamento(morador.getCodEstacionamento());
+            
         } catch (Exception e) {
             throw e;
         }

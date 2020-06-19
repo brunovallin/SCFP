@@ -27,11 +27,15 @@ public class DAOMorador {
             }
             rst = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d", morador.getId()));
             while (rst.next()) {
+                if (rst.getInt("MPESSOA") == 0) {
+                    throw new Exception("Morador não encontrado!");
+                }
+
                 morador.setBloco(rst.getString("BLOCO"));
                 morador.setnApt(rst.getInt("NAPT"));
                 morador.setCodEstacionamento(rst.getInt("CODESTACIONAMENTO"));
-            }
-            cnx.commit();
+                 
+            }            
             return morador;
         } catch (SQLException sqlEx) {
             cnx.rollback();
@@ -42,7 +46,7 @@ public class DAOMorador {
         } finally {
             conn.fecharConexao();
         }
-    }    
+    }
 
     public static Morador consultarMorador(String nome, String bloco, int napt) throws Exception {
         Conexao conn = new Conexao();
@@ -59,8 +63,9 @@ public class DAOMorador {
             }
             rst = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d AND BLOCO = '%s' AND MAPT = %d", morador.getId(), bloco, napt));
             while (rst.next()) {
-                if(rst.getInt("MPESSOA") == 0)
+                if (rst.getInt("MPESSOA") == 0) {
                     throw new Exception("Morador não encontrado!");
+                }
                 morador.setBloco(rst.getString("BLOCO"));
                 morador.setnApt(rst.getInt("NAPT"));
                 morador.setCodEstacionamento(rst.getInt("CODESTACIONAMENTO"));
@@ -116,12 +121,13 @@ public class DAOMorador {
         int id = 0;
         try {
             Statement stt = cnx.createStatement();
-            stt.execute(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO, RG) VALUES('%s', '%s', '%s');",morador.getNome(), data.format(morador.getDtNascimento()), morador.getRg()));
-            ResultSet rst = stt.executeQuery(String.format("SELECT ID FROM PESSOA WHERE NOME = '%s' AND ", morador.getNome()));
-            if(rst.next())
-                id = rst.getInt("ID");                
-            else
-                throw new Exception("Erro ao inserir Morador");            
+            stt.execute(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO, RG) VALUES('%s', '%s', '%s');", morador.getNome(), data.format(morador.getDtNascimento()), morador.getRg()));
+            ResultSet rst = stt.executeQuery(String.format("SELECT ID FROM PESSOA WHERE NOME = '%s';", morador.getNome()));
+            if (rst.next()) {
+                id = rst.getInt("ID");
+            } else {
+                throw new Exception("Erro ao inserir Morador");
+            }
             stt.execute(String.format("INSERT INTO MORADOR(MPESSOA, BLOCO, NAPT, CODESTACIONAMENTO) VALUES(%d, '%s', %d, %d)", id, morador.getBloco(), morador.getnApt(), morador.getCodEstacionamento()));            
             cnx.commit();
         } catch (SQLException sqlEx) {
@@ -147,8 +153,8 @@ public class DAOMorador {
             cnx.commit();
         } catch (SQLException sqlEx) {
             cnx.rollback();
-            throw sqlEx;}
-        catch (Exception e) {
+            throw sqlEx;
+        } catch (Exception e) {
             cnx.rollback();
             throw e;
         } finally {
