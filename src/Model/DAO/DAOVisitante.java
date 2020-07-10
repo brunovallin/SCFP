@@ -40,6 +40,35 @@ public class DAOVisitante {
         }
     }
 
+    public static Visitante consultarVisitante(Integer id) throws Exception {
+        Conexao conn = new Conexao();
+        Visitante visitante = new Visitante();
+        try {
+            Connection cnx = conn.getConexaoMySQL();
+            Statement stt = cnx.createStatement();
+            ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE ID = %d", id));
+            ResultSet rstVisitante;
+            while (rst.next()) {
+                visitante.setId(rst.getInt("ID"));
+                visitante.setNome(rst.getString("NOME"));
+                visitante.setDtNascimento(rst.getDate("DTNASCIMENTO"));
+                visitante.setRg(rst.getString("RG"));
+                break;
+            }
+            rstVisitante = stt.executeQuery(String.format("SELECT * FROM VISITANTE WHERE MPESSOA = %d", visitante.getId()));
+            while (rstVisitante.next()) {
+                visitante.setTipoVisitante(TipoVisitante.valueOf(rstVisitante.getString("TIPOVISITANTE")));
+            }
+            return visitante;
+        } catch (SQLException sqlEx) {
+            throw sqlEx;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            conn.fecharConexao();
+        }
+    }
+    
     public static ArrayList<Visitante> consultarVisitantes() throws Exception {
         Conexao conn = new Conexao();
         ArrayList<Visitante> moradores = new ArrayList<Visitante>();

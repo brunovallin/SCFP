@@ -48,20 +48,57 @@ public class DAOMorador {
         }
     }
 
-    public static Morador consultarMorador(String nome, String bloco, int napt) throws Exception {
+    public static Morador consultarMorador(Integer id) throws Exception {
         Conexao conn = new Conexao();
+        Connection cnx = conn.getConexaoMySQL();
         Morador morador = new Morador();
+        cnx.setAutoCommit(false);
         try {
-            Connection cnx = conn.getConexaoMySQL();
             Statement stt = cnx.createStatement();
-            ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE NOME like '%s%'", nome));
+            ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE ID = %d", id));
             while (rst.next()) {
                 morador.setId(rst.getInt("ID"));
                 morador.setNome(rst.getString("NOME"));
                 morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));
                 morador.setRg(rst.getString("RG"));
             }
-            rst = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d AND BLOCO = '%s' AND MAPT = %d", morador.getId(), bloco, napt));
+            rst = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d", morador.getId()));
+            while (rst.next()) {
+                if (rst.getInt("MPESSOA") == 0) {
+                    throw new Exception("Morador não encontrado!");
+                }
+
+                morador.setBloco(rst.getString("BLOCO"));
+                morador.setnApt(rst.getInt("NAPT"));
+                morador.setCodEstacionamento(rst.getInt("CODESTACIONAMENTO"));
+                 
+            }            
+            return morador;
+        } catch (SQLException sqlEx) {
+            cnx.rollback();
+            throw sqlEx;
+        } catch (Exception e) {
+            cnx.rollback();
+            throw e;
+        } finally {
+            conn.fecharConexao();
+        }
+    }
+    
+    public static Morador consultarMorador(String nome, String bloco, int napt) throws Exception {
+        Conexao conn = new Conexao();
+        Morador morador = new Morador();
+        try {
+            Connection cnx = conn.getConexaoMySQL();
+            Statement stt = cnx.createStatement();
+            ResultSet rst = stt.executeQuery("SELECT * FROM PESSOA WHERE NOME like '%" + nome.toUpperCase()+"%'");
+            while (rst.next()) {
+                morador.setId(rst.getInt("ID"));
+                morador.setNome(rst.getString("NOME"));
+                morador.setDtNascimento(rst.getDate("DTNASCIMENTO"));
+                morador.setRg(rst.getString("RG"));
+            }
+            rst = stt.executeQuery(String.format("SELECT * FROM MORADOR WHERE MPESSOA = %d AND BLOCO = '%s' AND NAPT = %d", morador.getId(), bloco, napt));
             while (rst.next()) {
                 if (rst.getInt("MPESSOA") == 0) {
                     throw new Exception("Morador não encontrado!");

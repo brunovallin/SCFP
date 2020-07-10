@@ -6,6 +6,6 @@ package Enum;
 public enum TipoFuncionario {
     SEGURANCA,
     ZELADOR,
-    FAXINEIRA,
+    FAXINEIRO,
     PORTEIRO
 }

@@ -1,6 +1,8 @@
 package Controller;
 
-import java.sql.Date;
+import Model.DAO.DAOMorador;
+import Model.DAO.DAOVisitante;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -37,27 +39,34 @@ public class LogEntradaController {
 
     }
 
-    public static void cadastrarLog(Visitante visitante, String descricaoAcao, String dataEntrada, Morador aVisitar) throws Exception{
+    public static void cadastrarLog(String rgVisitante, String descricaoAcao, Date dataEntrada, String nomeMorador, String bloco, String apt) throws Exception{
 
-        try {
-            SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+        try {            
+            SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             LogEntrada logEntrada = new LogEntrada();
 
 
-            if(visitante == null){
-                throw new Exception("Visitante não pode ser um campo vazio");
+            if(rgVisitante.isEmpty()){
+                throw new Exception("Rg do visitante não preenchido");
             }
-            logEntrada.setPessoa(visitante);
-
-            if(aVisitar == null){
-                throw new Exception("Morador não pode ser um campo vazio");
+            
+            logEntrada.setPessoa(DAOVisitante.consultarVisitante(rgVisitante));
+            
+            
+            if(nomeMorador.isEmpty() || bloco.isEmpty() || apt.isEmpty()){
+                throw new Exception("Nome\\Apartamento\\Bloco não preenchidos!");
             }
-            logEntrada.setaVisitar(aVisitar);
+            
+            logEntrada.setaVisitar(DAOMorador.consultarMorador(nomeMorador, bloco, Integer.parseInt(apt)));
+            
+            if(descricaoAcao.isEmpty())
+                throw new Exception("Descrição da visita não preenchida!");
+            
             logEntrada.setDescricaoAcao(descricaoAcao);
-            logEntrada.setDataEntrada((Date)data.parse(dataEntrada));
+            
+            logEntrada.setDataEntrada(dataEntrada);
 
             logEntrada.cadastrarLogEntrada();
-
         } catch (Exception e) {
             throw e;
         }

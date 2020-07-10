@@ -5,27 +5,38 @@
  */
 package View;
 
+import Controller.LogEntradaController;
 import Controller.MoradorController;
 import Controller.VisitanteController;
+import Model.DAO.DAOBloco;
+import Model.DAO.DAOLogEntrada;
+import Model.LogEntrada;
 import Model.Morador;
 import Model.Visitante;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author rodri
  */
 public class SCFP extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form SCFP
      */
-    public SCFP() {
+    public SCFP() throws Exception {
         initComponents();
-        comboDescLog.requestFocus();
+        cboxTipoVisitanteLog.requestFocus();
+        
+        carregaCbBloco();        
+        carregaJTable();
     }
 
     /**
@@ -41,20 +52,23 @@ public class SCFP extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        nomeVisitanteLog = new javax.swing.JTextField();
+        txtNomeVisitanteLog = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        rgVisitanteLog = new javax.swing.JTextField();
-        comboDescLog = new javax.swing.JComboBox<>();
-        botBuscaVisitanteLog = new javax.swing.JButton();
+        txtRgVisitanteLog = new javax.swing.JTextField();
+        cboxTipoVisitanteLog = new javax.swing.JComboBox<>();
+        btnBuscaVisitanteLog = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         detalheVisitanteLog = new javax.swing.JTextArea();
-        rgMoradorLog = new javax.swing.JTextField();
-        blocoMoradorLog = new javax.swing.JTextField();
-        numeroApartamentoLog = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        botBuscaMoradorLog = new javax.swing.JButton();
+        txtnAptLog = new javax.swing.JTextField();
+        btnLiberarVisitante = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         gridLog = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        cboxBloco = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtNomeMorador = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuCadastroVisitante = new javax.swing.JMenuItem();
@@ -65,52 +79,55 @@ public class SCFP extends javax.swing.JFrame {
         setTitle("SCFP - Sistema de Controle de Fluxo de Pessoas");
         setMinimumSize(new java.awt.Dimension(790, 295));
 
-        jLabel1.setText("Visitante");
+        jLabel1.setText("Visitante* :");
 
-        jLabel2.setText("Descrição");
+        jLabel2.setText("Tipo* :");
 
-        jLabel3.setText("Morador");
+        jLabel3.setText("Nome do Morador:");
 
-        nomeVisitanteLog.setForeground(new java.awt.Color(204, 204, 204));
-        nomeVisitanteLog.setText("Nome");
-        nomeVisitanteLog.setName("nomeVisitanteLog"); // NOI18N
-        nomeVisitanteLog.setSelectedTextColor(new java.awt.Color(255, 255, 255));
-        nomeVisitanteLog.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNomeVisitanteLog.setForeground(new java.awt.Color(0, 0, 0));
+        txtNomeVisitanteLog.setName("txtNomeVisitanteLog"); // NOI18N
+        txtNomeVisitanteLog.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txtNomeVisitanteLog.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                nomeVisitanteLogFocusLost(evt);
+                txtNomeVisitanteLogFocusLost(evt);
             }
         });
-        nomeVisitanteLog.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtNomeVisitanteLog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nomeVisitanteLogMouseClicked(evt);
+                txtNomeVisitanteLogMouseClicked(evt);
             }
         });
-
-        jLabel4.setText("RG");
-
-        rgVisitanteLog.setName("rgVisitanteLog"); // NOI18N
-
-        comboDescLog.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Visitante", "Prestador de Serviço" }));
-        comboDescLog.setActionCommand("visitanteDescricaolog");
-        comboDescLog.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboDescLogItemStateChanged(evt);
-            }
-        });
-
-        botBuscaVisitanteLog.setText("Buscar");
-        botBuscaVisitanteLog.setActionCommand("buscarRgVisitante");
-        botBuscaVisitanteLog.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeVisitanteLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botBuscaVisitanteLogActionPerformed(evt);
+                txtNomeVisitanteLogActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("RG* :");
+
+        txtRgVisitanteLog.setName("txtRgVisitanteLog"); // NOI18N
+
+        cboxTipoVisitanteLog.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Visitante", "Prestador de Serviço" }));
+        cboxTipoVisitanteLog.setActionCommand("visitanteDescricaolog");
+        cboxTipoVisitanteLog.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxTipoVisitanteLogItemStateChanged(evt);
+            }
+        });
+
+        btnBuscaVisitanteLog.setText("Buscar");
+        btnBuscaVisitanteLog.setActionCommand("buscarRgVisitante");
+        btnBuscaVisitanteLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscaVisitanteLogActionPerformed(evt);
             }
         });
 
         detalheVisitanteLog.setColumns(20);
         detalheVisitanteLog.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        detalheVisitanteLog.setForeground(new java.awt.Color(204, 204, 204));
+        detalheVisitanteLog.setForeground(new java.awt.Color(0, 0, 0));
         detalheVisitanteLog.setRows(5);
-        detalheVisitanteLog.setText("Descrição de serviço");
         detalheVisitanteLog.setName("campoDescriçãoServico"); // NOI18N
         detalheVisitanteLog.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -124,155 +141,151 @@ public class SCFP extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(detalheVisitanteLog);
 
-        rgMoradorLog.setForeground(new java.awt.Color(204, 204, 204));
-        rgMoradorLog.setText("Rg");
-        rgMoradorLog.setName("rgMoradorLog"); // NOI18N
-        rgMoradorLog.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtnAptLog.setForeground(new java.awt.Color(0, 0, 0));
+        txtnAptLog.setName("txtnAptLog"); // NOI18N
+        txtnAptLog.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                rgMoradorLogFocusLost(evt);
+                txtnAptLogFocusLost(evt);
             }
         });
-        rgMoradorLog.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtnAptLog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rgMoradorLogMouseClicked(evt);
+                txtnAptLogMouseClicked(evt);
             }
         });
 
-        blocoMoradorLog.setForeground(new java.awt.Color(204, 204, 204));
-        blocoMoradorLog.setText("Bloco");
-        blocoMoradorLog.setName("blocoMoradorLog"); // NOI18N
-        blocoMoradorLog.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                blocoMoradorLogFocusLost(evt);
-            }
-        });
-        blocoMoradorLog.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                blocoMoradorLogMouseClicked(evt);
-            }
-        });
-
-        numeroApartamentoLog.setForeground(new java.awt.Color(204, 204, 204));
-        numeroApartamentoLog.setText("Nº Apartamento");
-        numeroApartamentoLog.setName("numeroApartamentoLog"); // NOI18N
-        numeroApartamentoLog.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                numeroApartamentoLogFocusLost(evt);
-            }
-        });
-        numeroApartamentoLog.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                numeroApartamentoLogMouseClicked(evt);
-            }
-        });
-
-        jButton2.setText("Ok");
-        jButton2.setActionCommand("okLog");
-
-        botBuscaMoradorLog.setText("Buscar Morador");
-        botBuscaMoradorLog.setActionCommand("buscarMoradorLog");
-        botBuscaMoradorLog.addActionListener(new java.awt.event.ActionListener() {
+        btnLiberarVisitante.setText("Liberar Visitante");
+        btnLiberarVisitante.setActionCommand("okLog");
+        btnLiberarVisitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botBuscaMoradorLogActionPerformed(evt);
+                btnLiberarVisitanteActionPerformed(evt);
             }
         });
 
         gridLog.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Visitante", "Descrição", "Data de Entrada", "Morador"
+                "Visitante", "Descrição", "Data/Hora", "A Visitar"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         gridLog.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         gridLog.setName("gridLog"); // NOI18N
         jScrollPane2.setViewportView(gridLog);
+
+        cboxBloco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+
+        jLabel5.setText("Bloco: ");
+
+        jLabel6.setText("Nº Apt:");
+
+        txtNomeMorador.setForeground(new java.awt.Color(0, 0, 0));
+        txtNomeMorador.setName("txtnAptLog"); // NOI18N
+        txtNomeMorador.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeMoradorFocusLost(evt);
+            }
+        });
+        txtNomeMorador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNomeMoradorMouseClicked(evt);
+            }
+        });
+        txtNomeMorador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeMoradorActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Descrição da Visita* :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(botBuscaMoradorLog)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(nomeVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(numeroApartamentoLog)
-                                                .addComponent(blocoMoradorLog)
-                                                .addComponent(rgMoradorLog)))))
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboDescLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel1))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtRgVisitanteLog, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cboxTipoVisitanteLog, javax.swing.GroupLayout.Alignment.LEADING, 0, 152, Short.MAX_VALUE)
+                                        .addComponent(btnBuscaVisitanteLog))
+                                    .addGap(30, 30, 30)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtNomeVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNomeMorador)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rgVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtnAptLog, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botBuscaVisitanteLog))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnLiberarVisitante)
+                                    .addComponent(cboxBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(nomeVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(rgVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botBuscaVisitanteLog))
-                .addGap(18, 18, 18)
+                    .addComponent(txtNomeVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cboxTipoVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(comboDescLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtRgVisitanteLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(rgMoradorLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(blocoMoradorLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(numeroApartamentoLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscaVisitanteLog))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNomeMorador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botBuscaMoradorLog)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtnAptLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(cboxBloco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLiberarVisitante)
+                .addGap(87, 87, 87))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -319,8 +332,8 @@ public class SCFP extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -342,128 +355,100 @@ public class SCFP extends javax.swing.JFrame {
         new CadastroFuncionario().setVisible(true);
     }//GEN-LAST:event_menuCadastroFuncionarioActionPerformed
 
-    private void botBuscaVisitanteLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBuscaVisitanteLogActionPerformed
-        Visitante visitante = new Visitante();
-        String rg = rgVisitanteLog.getText();
-        
-        try {
-            if(rg != null){
-                VisitanteController.consultarVisitante(rg);
-                
-                nomeVisitanteLog.setText(visitante.getNome());
-            rgVisitanteLog.setText(visitante.getRg());
-            
-            switch(visitante.getTipoVisitante()){
-                case VISITANTE:
-                    comboDescLog.setSelectedIndex(1);
-                    break;
-                case PRESTADORSERVICO:
-                    comboDescLog.setSelectedIndex(2);
-                    break;
-                default:
-                    comboDescLog.setSelectedIndex(0);
-                    break;
-            }
-                }
-            else 
-                throw new Exception("para fazer a busca, precisa do rg do visitante");
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_botBuscaVisitanteLogActionPerformed
-
-    private void comboDescLogItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDescLogItemStateChanged
+    private void txtNomeMoradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeMoradorMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboDescLogItemStateChanged
+    }//GEN-LAST:event_txtNomeMoradorMouseClicked
 
-    private void nomeVisitanteLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nomeVisitanteLogMouseClicked
-        if("Nome".equals(nomeVisitanteLog.getText())){
-            nomeVisitanteLog.setText("");
-            nomeVisitanteLog.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_nomeVisitanteLogMouseClicked
+    private void txtNomeMoradorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeMoradorFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeMoradorFocusLost
 
-    private void nomeVisitanteLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomeVisitanteLogFocusLost
-        if(nomeVisitanteLog.getText().equals("")){
-            nomeVisitanteLog.setText("Nome");
-            nomeVisitanteLog.setForeground(Color.lightGray);
-        }
-    }//GEN-LAST:event_nomeVisitanteLogFocusLost
+    private void btnLiberarVisitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarVisitanteActionPerformed
+        try {
+            LogEntradaController.cadastrarLog(txtRgVisitanteLog.getText(), detalheVisitanteLog.getText(), new Date(), txtNomeMorador.getText(), cboxBloco.getSelectedItem().toString(),txtnAptLog.getText());
+            JOptionPane.showMessageDialog(null, "Visitante Liberado!");
 
-    private void rgMoradorLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rgMoradorLogFocusLost
-        if(rgMoradorLog.getText().equals("")){
-            rgMoradorLog.setText("Nome");
-            rgMoradorLog.setForeground(Color.lightGray);
-        }
-    }//GEN-LAST:event_rgMoradorLogFocusLost
+            carregaJTable();
 
-    private void rgMoradorLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rgMoradorLogMouseClicked
-        if(rgMoradorLog.getText().equals("Nome")){
-            rgMoradorLog.setText("");
-            rgMoradorLog.setForeground(Color.black);
+            txtNomeVisitanteLog.setText("");
+            cboxTipoVisitanteLog.setSelectedIndex(0);
+            txtRgVisitanteLog.setText("");
+            detalheVisitanteLog.setText("");
+            txtNomeMorador.setText("");
+            cboxBloco.setSelectedIndex(0);
+            txtnAptLog.setText("");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    }//GEN-LAST:event_rgMoradorLogMouseClicked
+    }//GEN-LAST:event_btnLiberarVisitanteActionPerformed
 
-    private void blocoMoradorLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_blocoMoradorLogMouseClicked
-        if(blocoMoradorLog.getText().equals("Bloco")){
-            blocoMoradorLog.setText("");
-            blocoMoradorLog.setForeground(Color.black);
-        }
-    }//GEN-LAST:event_blocoMoradorLogMouseClicked
+    private void txtnAptLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtnAptLogMouseClicked
 
-    private void blocoMoradorLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_blocoMoradorLogFocusLost
-        if(blocoMoradorLog.getText().equals("")){
-            blocoMoradorLog.setText("Bloco");
-            blocoMoradorLog.setForeground(Color.LIGHT_GRAY);
-        }
-    }//GEN-LAST:event_blocoMoradorLogFocusLost
+    }//GEN-LAST:event_txtnAptLogMouseClicked
 
-    private void numeroApartamentoLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numeroApartamentoLogFocusLost
-        if(numeroApartamentoLog.getText().equals("")){
-            numeroApartamentoLog.setText("Nº Apartamento");
-            numeroApartamentoLog.setForeground(Color.LIGHT_GRAY);
-        }
-    }//GEN-LAST:event_numeroApartamentoLogFocusLost
+    private void txtnAptLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnAptLogFocusLost
 
-    private void numeroApartamentoLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeroApartamentoLogMouseClicked
-        if(numeroApartamentoLog.getText().equals("Nº Apartamento")){
-            numeroApartamentoLog.setText("");
-            numeroApartamentoLog.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_numeroApartamentoLogMouseClicked
-
-    private void detalheVisitanteLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_detalheVisitanteLogFocusLost
-        if(detalheVisitanteLog.getText().equals("")){
-            detalheVisitanteLog.setText("Descrição de serviço");
-            detalheVisitanteLog.setForeground(Color.LIGHT_GRAY);
-        }
-    }//GEN-LAST:event_detalheVisitanteLogFocusLost
+    }//GEN-LAST:event_txtnAptLogFocusLost
 
     private void detalheVisitanteLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detalheVisitanteLogMouseClicked
-        if(detalheVisitanteLog.getText().equals("Descrição de serviço")){
-            detalheVisitanteLog.setText("");
-            detalheVisitanteLog.setForeground(Color.BLACK);
-        }
+
     }//GEN-LAST:event_detalheVisitanteLogMouseClicked
 
-    private void botBuscaMoradorLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botBuscaMoradorLogActionPerformed
+    private void detalheVisitanteLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_detalheVisitanteLogFocusLost
+
+    }//GEN-LAST:event_detalheVisitanteLogFocusLost
+
+    private void btnBuscaVisitanteLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaVisitanteLogActionPerformed
+        Visitante visitante = new Visitante();
+        String rg = txtRgVisitanteLog.getText();
+
         try {
-            String rg = rgMoradorLog.getText();
-            Morador morador = MoradorController.consultarMorador(rg);
-            
             if(rg != null){
-                
-                blocoMoradorLog.setText(morador.getBloco());
-                numeroApartamentoLog.setText(Integer.toString(morador.getnApt()));
+
+                visitante = VisitanteController.consultarVisitante(rg);
+
+                txtNomeVisitanteLog.setText(visitante.getNome());
+                txtRgVisitanteLog.setText(visitante.getRg());
+
+                switch(visitante.getTipoVisitante()){
+                    case VISITANTE:
+                    cboxTipoVisitanteLog.setSelectedIndex(1);
+                    break;
+                    case PRESTADORSERVICO:
+                    cboxTipoVisitanteLog.setSelectedIndex(2);
+                    break;
+                    default:
+                    cboxTipoVisitanteLog.setSelectedIndex(0);
+                    break;
+                }
             }
-            else{
-                throw new Exception("Para fazer a busca, precisa do morador - rg");
-            }
+            else
+            throw new Exception("para fazer a busca, precisa do rg do visitante");
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-    }//GEN-LAST:event_botBuscaMoradorLogActionPerformed
+    }//GEN-LAST:event_btnBuscaVisitanteLogActionPerformed
+
+    private void cboxTipoVisitanteLogItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxTipoVisitanteLogItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxTipoVisitanteLogItemStateChanged
+
+    private void txtNomeVisitanteLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeVisitanteLogActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeVisitanteLogActionPerformed
+
+    private void txtNomeVisitanteLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNomeVisitanteLogMouseClicked
+
+    }//GEN-LAST:event_txtNomeVisitanteLogMouseClicked
+
+    private void txtNomeVisitanteLogFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeVisitanteLogFocusLost
+
+    }//GEN-LAST:event_txtNomeVisitanteLogFocusLost
+
+    private void txtNomeMoradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeMoradorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeMoradorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -494,35 +479,65 @@ public class SCFP extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SCFP().setVisible(true);
+            public void run() {                
+                try {
+                    new SCFP().setVisible(true);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             }
         });
     }
 
+    
+    private void carregaCbBloco() {
+        cboxBloco.removeAllItems();
+        try {            
+            for (String item : DAOBloco.buscaBlocos()) {
+                cboxBloco.addItem(item);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField blocoMoradorLog;
-    private javax.swing.JButton botBuscaMoradorLog;
-    private javax.swing.JButton botBuscaVisitanteLog;
-    private javax.swing.JComboBox<String> comboDescLog;
+    private javax.swing.JButton btnBuscaVisitanteLog;
+    private javax.swing.JButton btnLiberarVisitante;
+    private javax.swing.JComboBox<String> cboxBloco;
+    private javax.swing.JComboBox<String> cboxTipoVisitanteLog;
     private javax.swing.JTextArea detalheVisitanteLog;
     private javax.swing.JTable gridLog;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JMenuItem menuCadastroFuncionario;
     private javax.swing.JMenuItem menuCadastroMorador;
     private javax.swing.JMenuItem menuCadastroVisitante;
-    private javax.swing.JTextField nomeVisitanteLog;
-    private javax.swing.JTextField numeroApartamentoLog;
-    private javax.swing.JTextField rgMoradorLog;
-    private javax.swing.JTextField rgVisitanteLog;
+    private javax.swing.JTextField txtNomeMorador;
+    private javax.swing.JTextField txtNomeVisitanteLog;
+    private javax.swing.JTextField txtRgVisitanteLog;
+    private javax.swing.JTextField txtnAptLog;
     // End of variables declaration//GEN-END:variables
+
+    private void carregaJTable() throws Exception {                        
+        DefaultTableModel model = (DefaultTableModel)gridLog.getModel();                
+        SimpleDateFormat hora = new SimpleDateFormat("HH:mm:ss - dd/MM/yyyy");
+        
+        Object[] dados = null;
+        for(LogEntrada dado : DAOLogEntrada.consultaLogEntradaDia(new Date())){
+            dados = new Object[]{dado.getVisitante().getNome(),dado.getDescricaoAcao(),String.format("%s",hora.format(dado.getDataEntrada())),String.format("%s - %s",dado.getaVisitar().getBloco(),dado.getaVisitar().getnApt())};
+            model.addRow(dados);
+        }                
+    }
 }

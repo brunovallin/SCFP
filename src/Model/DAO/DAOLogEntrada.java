@@ -8,22 +8,34 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Model.LogEntrada;
+import Model.Morador;
+import Model.Visitante;
+import java.text.SimpleDateFormat;
 
 public class DAOLogEntrada {
     public static ArrayList<LogEntrada> consultaLogEntradaDia(Date data) throws Exception {
         Conexao conn = new Conexao();
         LogEntrada log = new LogEntrada();
         ArrayList<LogEntrada> logs = new ArrayList<LogEntrada>();
+        SimpleDateFormat date,time;
+        date = new SimpleDateFormat("yyyy-MM-dd");
+        time = new SimpleDateFormat("HH:mm:ss");
+        
+        Visitante visitante;
+        Morador morador;
         try {
             Connection cnx = conn.getConexaoMySQL();
             Statement stt = cnx.createStatement();
-            ResultSet rst = stt.executeQuery(String.format("SELECT * FROM LOGENTRADA WHERE DATAENTRADA = %t", data));
+            ResultSet rst = stt.executeQuery("SELECT * FROM LOGENTRADA WHERE DATAENTRADA LIKE '%" + date.format(data) + "%'");
             while (rst.next()) {
                 log = new LogEntrada();
-                log.setPessoa(rst.getInt("MPESSOA"));
-                log.setDescricaoAcao(rst.getString("DESCRICAOACAO"));
-                log.setDataEntrada(rst.getDate("DATAENTRADA"));
-                log.setaVisitar(rst.getInt("MAVISITAR"));
+                visitante = new Visitante();
+                morador = new Morador();                
+                log.setPessoa(DAOVisitante.consultarVisitante(rst.getInt("MPESSOA")));
+                log.setDescricaoAcao(rst.getString("DESCRICAOACAO"));                
+                log.setDataEntrada(rst.getTimestamp("DATAENTRADA"));                
+                log.setaVisitar(DAOMorador.consultarMorador(rst.getInt("MAVISITAR")));                
+                
                 logs.add(log);
             }
             return logs;
@@ -65,11 +77,13 @@ public class DAOLogEntrada {
     public static void cadastrarLogEntrada(LogEntrada log) throws Exception {
         Conexao conn = new Conexao();
         Connection cnx = conn.getConexaoMySQL();
-        try {
+        cnx.setAutoCommit(false);
+        SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {            
             Statement stt = cnx.createStatement();
             stt.execute(String.format(
-                    "INSERT INTO LOGENTRADA(MPESSOA, DESCRICAOACAO, DATAENTRADA,MAVISITAR) VALUES(%d, '%s',%t, %d);",
-                    log.getVisitante().getId(), log.getDescricaoAcao(), log.getDataEntrada(),
+                    "INSERT INTO LOGENTRADA(MPESSOA, DESCRICAOACAO, DATAENTRADA,MAVISITAR) VALUES(%d, '%s','%s', %d);",
+                    log.getVisitante().getId(), log.getDescricaoAcao(), data.format(log.getDataEntrada()),
                     log.getaVisitar().getId()));
             cnx.commit();
         } catch (Exception e) {

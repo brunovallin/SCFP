@@ -47,7 +47,7 @@ public class Morador extends Pessoa {
     }
 
     public String getBloco() {
-        return this.bloco.concat(bloco).concat(" ");
+        return this.bloco;
     }
 
     public void setBloco(String bloco) {
