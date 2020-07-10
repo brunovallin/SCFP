@@ -1,12 +1,12 @@
 package Controller;
 
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import Enum.TipoFuncionario;
 import Model.Funcionario;
+import Model.DAO.DAOFuncionario;
 
 public class FuncionarioController {
 
@@ -30,7 +30,7 @@ public class FuncionarioController {
         
         try{
 
-            return Funcionario.consultarFuncionarios();
+            return DAOFuncionario.consultarTodosFuncionarios();
 
         } catch (final Exception e) {
             
@@ -48,7 +48,7 @@ public class FuncionarioController {
             funcionario.setDtNascimento((Date)data.parse(dtNasc));
             funcionario.setRg(rg.replace(".", "").replace("-", "").replace("/", ""));
 
-            switch (tipoFuncionario) {
+            switch (tipoFuncionario.toUpperCase()) {
                 case "FAXINEIRA":
                     funcionario.setTipoFuncionario(TipoFuncionario.FAXINEIRA);
                     break;
@@ -61,7 +61,7 @@ public class FuncionarioController {
                     funcionario.setTipoFuncionario(TipoFuncionario.ZELADOR);
                     break;
 
-                case "SEGURANCA":
+                case "SEGURANÇA":
                     funcionario.setTipoFuncionario(TipoFuncionario.SEGURANCA);
                     break;
                 default:

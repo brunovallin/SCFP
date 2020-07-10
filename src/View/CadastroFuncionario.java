@@ -7,7 +7,10 @@ package View;
 
 import Controller.FuncionarioController;
 import Model.Funcionario;
+import java.text.SimpleDateFormat;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -43,9 +46,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         excluirFuncionario = new javax.swing.JButton();
         alterarFuncionario = new javax.swing.JButton();
         botBuscaFuncionarioCad = new javax.swing.JButton();
-        dataNascfuncionarioCad = new javax.swing.JFormattedTextField();
         funcaoCadFuncionario = new javax.swing.JComboBox<>();
         labelInvisivel2 = new javax.swing.JLabel();
+        dataNascfuncionarioCad = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SCFP - CADASTRO DE FUNCIONÁRIOS");
@@ -103,6 +106,13 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         labelInvisivel2.setEnabled(false);
 
+        try {
+            MaskFormatter mascaradata = new MaskFormatter("##/##/####");
+            dataNascfuncionarioCad = new JFormattedTextField(mascaradata);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro ao iniciar campo data");
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,8 +127,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(excluirFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(alterarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,8 +145,10 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                                 .addComponent(funcaoCadFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botBuscaFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(nomeFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(nomeFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,8 +161,8 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(rgFuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dataNascfuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(dataNascfuncionarioCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -190,15 +203,15 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarFuncionarioActionPerformed
-        String nome = nomeFuncionarioCad.getSelectedText();
-        String rg = rgFuncionarioCad.getSelectedText();
-        String dataNascimento = dataNascfuncionarioCad.getSelectedText();
+        String nome = nomeFuncionarioCad.getText();
+        String rg = rgFuncionarioCad.getText();
+        String dataNascimento = dataNascfuncionarioCad.getText();
         String funcao = funcaoCadFuncionario.getSelectedItem().toString();
         labelInvisivel2.setVisible(false);
         
              try {
                  if(nome != null && rg != null && dataNascimento != null && !funcao.equals("Selecione")){
-                 FuncionarioController.cadastrarFuncionario(nome, rg, dataNascimento, funcao);
+                 FuncionarioController.cadastrarFuncionario(nome, dataNascimento, rg, funcao);
                  }
                  else{
                      throw new Exception("Preencha os dados corretamente");
@@ -248,6 +261,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
        
         labelInvisivel2.setVisible(false);
         Funcionario funcionario = new Funcionario();
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
         
         try {
             
@@ -260,8 +274,26 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 
             nomeFuncionarioCad.setText(funcionario.getNome());
             rgFuncionarioCad.setText(funcionario.getRg());
-            dataNascfuncionarioCad.setText(funcionario.getDtNascimento().toString());
-            funcaoCadFuncionario.setSelectedItem(funcionario.getTipoFuncionario());
+            dataNascfuncionarioCad.setText(data.format(funcionario.getDtNascimento()));
+              
+
+               switch(funcionario.getTipoFuncionario()){
+                case PORTEIRO:
+                    funcaoCadFuncionario.setSelectedIndex(1);
+                break;
+                case SEGURANCA:
+                    funcaoCadFuncionario.setSelectedIndex(3);
+                break;
+                case ZELADOR:    
+                     funcaoCadFuncionario.setSelectedIndex(4);
+                break;
+                case FAXINEIRA:
+                     funcaoCadFuncionario.setSelectedIndex(2);
+                break;
+                default:
+                     funcaoCadFuncionario.setSelectedIndex(0);
+                    break;
+            }
             labelInvisivel2.setText(String.valueOf(funcionario.getId()));
             
             

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Enum.TipoFuncionario;
@@ -17,15 +18,15 @@ public class DAOFuncionario {
             Connection cnx = conn.getConexaoMySQL();
             Statement stt = cnx.createStatement();
             ResultSet rst = stt.executeQuery(String.format("SELECT * FROM PESSOA WHERE RG = '%s'", rg));
-            while(rst.first()){              
+            while(rst.next()){              
               funcionario.setId(rst.getInt("ID"));
               funcionario.setNome(rst.getString("NOME"));
               funcionario.setDtNascimento(rst.getDate("DTNASCIMENTO"));                                        
               funcionario.setRg(rst.getString("RG"));                            
             }            
             rst = stt.executeQuery(String.format("SELECT * FROM FUNCIONARIO WHERE MPESSOA = %d", funcionario.getId()));
-            while(rst.first()){
-              funcionario.setTipoFuncionario((TipoFuncionario)rst.getObject("TIPOFUNCIONARIO"));
+            while(rst.next()){
+              funcionario.setTipoFuncionario(TipoFuncionario.valueOf(rst.getString("TIPOFUNCIONARIO")));
             }
             return funcionario;
         } catch(SQLException sqlEx){
@@ -39,7 +40,7 @@ public class DAOFuncionario {
         }		
     }
     
-    public static ArrayList<Funcionario> consultarFuncionarios() throws Exception{
+    public static ArrayList<Funcionario> consultarTodosFuncionarios() throws Exception{
       Conexao conn = new Conexao();
       ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();            
       Funcionario funcionario;
@@ -75,13 +76,21 @@ public class DAOFuncionario {
     public static void cadastrarFuncionario(Funcionario funcionario) throws Exception{
       Conexao conn = new Conexao();
       Connection cnx = conn.getConexaoMySQL();
+      cnx.setAutoCommit(false);
+      SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+      int id = 0;
         try {            
           
           Statement stt = cnx.createStatement();
-          ResultSet rst = stt.executeQuery(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO,CPF, RG) VALUES('%s',%t,'%s','%s'); SELECT ID FROM PESSOA WHERE NOME = '%s'",
-                                            funcionario.getNome(), funcionario.getDtNascimento(), funcionario.getRg(), funcionario.getNome()));
-          int id = rst.getInt("ID");          
-          stt.execute(String.format("INSERT INTO FUNCIONARIO(MPESSOA, TIPOFUNCIONARIO) VALUES(%d, '%s')", id, funcionario.getTipoFuncionario().toString()));
+          stt.execute(String.format("INSERT INTO PESSOA(NOME,DTNASCIMENTO, RG) VALUES('%s', '%s' ,'%s');",
+          funcionario.getNome(), data.format(funcionario.getDtNascimento()), funcionario.getRg()));
+          ResultSet rst = stt.executeQuery(String.format("SELECT ID FROM PESSOA WHERE NOME = '%s'", funcionario.getNome()));
+          
+          if (rst != null && rst.next()) {
+            id = rst.getInt("ID");
+        }
+                
+          stt.execute(String.format("INSERT INTO FUNCIONARIO(MPESSOA, TIPOFUNCIONARIO) VALUES(%d, '%s')", id, funcionario.getTipoFuncionario().toString().toUpperCase()));
           cnx.commit();
       } catch (Exception e) {
         cnx.rollback();
@@ -95,9 +104,11 @@ public class DAOFuncionario {
 	public static void alterarFuncionario(Funcionario funcionario) throws Exception{
     Conexao conn = new Conexao();
     Connection cnx = conn.getConexaoMySQL();
+    SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+
     try {                  
       Statement stt = cnx.createStatement();
-      stt.execute(String.format("UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, RG = '%s' WHERE ID = %d);",funcionario.getNome(), funcionario.getDtNascimento(), funcionario.getRg(), funcionario.getId()));
+      stt.execute(String.format("UPDATE PESSOA SET NOME = '%s', DTNASCIMENTO = %t, RG = '%s' WHERE ID = %d);",funcionario.getNome(), data.format(funcionario.getDtNascimento()), funcionario.getRg(), funcionario.getId()));
       stt.execute(String.format("UPDATE FUNCIONARIO SET TIPOFUNCIONARIO = '%s' WHERE MPESSOA = %d", funcionario.getTipoFuncionario().toString(), funcionario.getId()));
       cnx.commit();
     } catch (Exception e) {
@@ -114,7 +125,8 @@ public class DAOFuncionario {
     Connection cnx = conn.getConexaoMySQL();
     try {            
       Statement stt = cnx.createStatement();
-      stt.execute(String.format("DELETE FROM FUNCIONARIO WHERE MPESSOA = %d; DELETE FROM PESSOA WHERE ID = %d",id,id));
+      stt.execute(String.format("DELETE FROM FUNCIONARIO WHERE MPESSOA = %d; ", id));
+      stt.execute(String.format("DELETE FROM PESSOA WHERE ID = %d", id));
       cnx.commit();
     } catch (Exception e) {
       cnx.rollback();
